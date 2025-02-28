@@ -50,7 +50,7 @@ const navigation = {
         },
         {
           id: "administrative_law_and_process",
-          name: "Административно право и процес право и процес",
+          name: "Административно право и процес",
           href: "#",
         },
         {
