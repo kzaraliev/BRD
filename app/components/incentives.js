@@ -70,7 +70,7 @@ const incentives = [
 </svg> */
 }
 
-export default function Example() {
+export default function Incentive() {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 lg:px-4">

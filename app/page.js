@@ -1,9 +1,9 @@
-import HeroSection from "./hero";
-import Team from "./team";
-import Testimonial from "./testimonial";
-import Incentives from "./incentives";
-import Clients from "./clients";
-import CTA from "./cta";
+import HeroSection from "./components/hero";
+import Team from "./components/team";
+import Testimonial from "./components/testimonial";
+import Incentives from "./components/incentives";
+import Clients from "./components/clients";
+import CTA from "./components/cta";
 
 export default function Home() {
   return (

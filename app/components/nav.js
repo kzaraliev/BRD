@@ -114,7 +114,7 @@ const navigation = {
   ],
 };
 
-export default function Example() {
+export default function Navigation() {
   const [open, setOpen] = useState(false);
 
   return (
