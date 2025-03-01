@@ -244,7 +244,7 @@ export default function Navigation() {
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
                 <Link href="#">
-                  <span className="sr-only">Your Company</span>
+                  <span className="sr-only">BRD</span>
                   <img alt="" src="/brd_menu_logo.png" className="h-8 w-auto" />
                 </Link>
               </div>
@@ -264,7 +264,7 @@ export default function Navigation() {
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
                       <div className="relative flex">
-                        <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-indigo-600 data-open:text-indigo-600">
+                        <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-indigo-600 data-open:text-indigo-600 cursor-pointer">
                           {category.name}
                         </PopoverButton>
                       </div>
@@ -303,7 +303,7 @@ export default function Navigation() {
                                       {item.name}
                                     </Link>
                                     <p aria-hidden="true" className="mt-1">
-                                      Shop now
+                                      Виж повече
                                     </p>
                                   </div>
                                 ))}

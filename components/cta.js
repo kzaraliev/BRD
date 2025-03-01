@@ -1,4 +1,4 @@
-export default function cta() {
+export default function CTA() {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-10/10 py-24 sm:px-6 sm:py-32 lg:px-0">
