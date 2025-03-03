@@ -1,6 +1,15 @@
 import Footer from "../components/footer";
 import Navigation from "../components/nav";
+
 import "../styles/globals.css";
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "700"], // Избери желаните тегла
+  style: ["normal", "italic"], // Опционално - добавя и курсив
+  display: "swap",
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -10,8 +19,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bg">
-      <body>
-        <Navigation/>
+      <body className={roboto.className}>
+        <Navigation />
         {children}
         <Footer />
       </body>
