@@ -18,6 +18,8 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+
 const navigation = {
   categories: [
     {
@@ -116,6 +118,7 @@ const navigation = {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   return (
     <div className="bg-white sticky shadow-md top-0 block w-full z-50">
@@ -244,7 +247,7 @@ export default function Navigation() {
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
                 <Link href="#">
-                  <span className="sr-only">BRD</span>
+                  <span className="sr-only">Your Company</span>
                   <img alt="" src="/brd_menu_logo.png" className="h-8 w-auto" />
                 </Link>
               </div>
@@ -256,19 +259,31 @@ export default function Navigation() {
                     <Link
                       key={page.name}
                       href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                      className="flex items-center text-lg font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
                     </Link>
                   ))}
                   {navigation.categories.map((category) => (
-                    <Popover key={category.name} className="flex">
+                    <Popover
+                      key={category.name}
+                      className="flex"
+                      open={isServicesOpen}
+                      onClose={() => setIsServicesOpen(false)}
+                    >
                       <div className="relative flex">
-                        <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-indigo-600 data-open:text-indigo-600 cursor-pointer">
+                        <PopoverButton
+                          className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-lg font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-indigo-600 data-open:text-indigo-600 cursor-pointer focus-visible:outline-none"
+                          onClick={() => setIsServicesOpen(!isServicesOpen)}
+                        >
                           {category.name}
+                          <ChevronDownIcon
+                            className={`ml-2 h-5 w-5 text-gray-500 transition-transform duration-200 ease-in-out ${
+                              isServicesOpen ? "rotate-180" : "rotate-0"
+                            }`}
+                          />
                         </PopoverButton>
                       </div>
-
                       <PopoverPanel
                         transition
                         className="absolute inset-x-0 top-full text-sm text-gray-500 transition data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
@@ -303,7 +318,7 @@ export default function Navigation() {
                                       {item.name}
                                     </Link>
                                     <p aria-hidden="true" className="mt-1">
-                                      Виж повече
+                                      Shop now
                                     </p>
                                   </div>
                                 ))}

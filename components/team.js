@@ -24,13 +24,13 @@ const people = [
 
 export default function Team() {
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-white py-24 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl lg:mx-0">
-          <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
+        <div className="mx-auto max-w-8xl lg:mx-0">
+          <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl text-center">
             Нашият екип
           </h2>
-          <p className="mt-6 text-lg/8 text-gray-600">
+          <p className="mt-6 text-lg/8 text-gray-600 text-center">
             Нашите адвокати разполагат с богат опит в консултирането на
             динамично развиващи се сектори като медии (TV, радио, интернет),
             телекомуникации, маркетинг, реклама, създаване на съдържание и нови
@@ -42,7 +42,7 @@ export default function Team() {
           className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
         >
           {people.map((person) => (
-            <li key={person.name} className="w-fit h-fit">
+            <li key={person.name} className="flex flex-col items-center">
               <Link href={`#`}>
                 <Image
                   width={250}

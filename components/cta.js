@@ -1,7 +1,7 @@
 export default function CTA() {
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-10/10 py-24 sm:px-6 sm:py-32 lg:px-0">
+      <div className="mx-auto max-w-10/10 py-0 sm:px-6 sm:py-0 lg:px-0">
         <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 text-center shadow-2xl sm:px-16">
           <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
             Boost your productivity today
@@ -36,7 +36,7 @@ export default function CTA() {
             <defs>
               <radialGradient id="827591b1-ce8c-4110-b064-7cb85a0b1217">
                 <stop stopColor="#95161C" />
-                <stop offset={1} stopColor="#FF6B6B" />
+                <stop offset={1} stopColor="#95161C" />
               </radialGradient>
             </defs>
           </svg>
