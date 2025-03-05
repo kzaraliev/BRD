@@ -17,15 +17,17 @@ const URL_FORM =
 export default function Contact() {
   const [errors, setErrors] = useState({});
   const [contactInfo, setContactInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchContact() {
-      const data = await getContactInfo();      
+      setLoading(true);
+      const data = await getContactInfo();
       if (data) setContactInfo(data);
+      setLoading(false);
     }
     fetchContact();
   }, []);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,41 +130,66 @@ export default function Contact() {
               Arcu sed malesuada et magna.
             </p>
             <dl className="mt-10 space-y-4 text-base text-gray-600">
-              {contactInfo && (
-                <>
-                  <div className="flex gap-x-4">
-                    <dt className="flex-none">
-                      <BuildingOffice2Icon className="h-7 w-6 text-gray-400" />
-                    </dt>
-                    <dd>{contactInfo.address}</dd>
-                  </div>
-                  <div className="flex gap-x-4">
-                    <dt className="flex-none">
-                      <PhoneIcon className="h-7 w-6 text-gray-400" />
-                    </dt>
-                    <dd>
-                      <a
-                        href={`tel:${contactInfo.phone_number}`}
-                        className="hover:text-gray-900"
-                      >
-                        {contactInfo.phone_number}
-                      </a>
-                    </dd>
-                  </div>
-                  <div className="flex gap-x-4">
-                    <dt className="flex-none">
-                      <EnvelopeIcon className="h-7 w-6 text-gray-400" />
-                    </dt>
-                    <dd>
-                      <a
-                        href={`mailto:${contactInfo.email}`}
-                        className="hover:text-gray-900"
-                      >
-                        {contactInfo.email}
-                      </a>
-                    </dd>
-                  </div>
-                </>
+              {loading ? (
+                <div className="flex justify-center items-center h-10">
+                  <svg
+                    className="animate-spin h-6 w-6 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8H4z"
+                    ></path>
+                  </svg>
+                </div>
+              ) : (
+                contactInfo && (
+                  <>
+                    <div className="flex gap-x-4">
+                      <dt className="flex-none">
+                        <BuildingOffice2Icon className="h-7 w-6 text-gray-400" />
+                      </dt>
+                      <dd>{contactInfo.address}</dd>
+                    </div>
+                    <div className="flex gap-x-4">
+                      <dt className="flex-none">
+                        <PhoneIcon className="h-7 w-6 text-gray-400" />
+                      </dt>
+                      <dd>
+                        <a
+                          href={`tel:${contactInfo.phone_number}`}
+                          className="hover:text-gray-900"
+                        >
+                          {contactInfo.phone_number}
+                        </a>
+                      </dd>
+                    </div>
+                    <div className="flex gap-x-4">
+                      <dt className="flex-none">
+                        <EnvelopeIcon className="h-7 w-6 text-gray-400" />
+                      </dt>
+                      <dd>
+                        <a
+                          href={`mailto:${contactInfo.email}`}
+                          className="hover:text-gray-900"
+                        >
+                          {contactInfo.email}
+                        </a>
+                      </dd>
+                    </div>
+                  </>
+                )
               )}
             </dl>
           </div>
