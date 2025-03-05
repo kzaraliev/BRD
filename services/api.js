@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.BRD_API_BASE_URL;
+const API_BASE_URL = "https://brd.devclick.net/wp-json/wp/v2";
 
 /**
  * Universal fetch function
