@@ -273,7 +273,7 @@ export default function Navigation() {
                     >
                       <div className="relative flex">
                         <PopoverButton
-                          className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-lg font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-indigo-600 data-open:text-indigo-600 cursor-pointer focus-visible:outline-none"
+                          className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-lg font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-[#95161C] data-open:text-[#95161C] cursor-pointer focus-visible:outline-none"
                           onClick={() => setIsServicesOpen(!isServicesOpen)}
                         >
                           {category.name}
@@ -295,7 +295,7 @@ export default function Navigation() {
 
                         <div className="relative bg-white">
                           <div className="mx-auto max-w-7xl px-8">
-                            <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
+                            <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-6">
                               <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                 {category.featured.map((item) => (
                                   <div
@@ -323,17 +323,17 @@ export default function Navigation() {
                                   </div>
                                 ))}
                               </div>
-                              <ul className="text-sm divide-y divide-gray-100 start-1 row-start-1 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+                              <ul className="text-lg divide-y divide-gray-100 start-1 row-start-1 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
                                 {category.services.map((service) => (
                                   <li
                                     key={service.id}
-                                    className="flex gap-x-4 py-5"
+                                    className="flex gap-x-4 py-1 items-center"
                                   >
                                     <Link
-                                      className="min-w-0 w-full block"
+                                      className="min-w-0 w-full flex"
                                       href={service.href}
                                     >
-                                      <p className="text-sm font-semibold text-gray-900 transition-colors duration-300 hover:text-indigo-600">
+                                      <p className="text-lg font-semibold text-gray-900 transition-colors duration-300 hover:text-[#95161C]">
                                         {service.name}
                                       </p>
                                     </Link>
