@@ -111,7 +111,7 @@ const navigation = {
   pages: [
     { name: "Начало", href: "/" },
     { name: "Екип", href: "/team" },
-    { name: "Блог", href: "#" },
+    { name: "Блог", href: "/blog" },
     { name: "Контакти", href: "/contact" },
   ],
 };
