@@ -19,6 +19,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
 
 const navigation = {
   categories: [
@@ -128,7 +129,6 @@ export default function Navigation() {
           transition
           className="fixed inset-0 bg-black/25 transition-opacity duration-300 ease-linear data-closed:opacity-0"
         />
-
         <div className="fixed inset-0 z-40 flex">
           <DialogPanel
             transition
@@ -145,7 +145,6 @@ export default function Navigation() {
                 <XMarkIcon aria-hidden="true" className="size-6" />
               </button>
             </div>
-
             {/* Links */}
             <TabGroup className="mt-2">
               <div className="space-y-6 border-t border-gray-200 px-4 py-6">
@@ -154,6 +153,7 @@ export default function Navigation() {
                     <Link
                       href={page.href}
                       className="-m-2 block p-2 font-medium text-gray-900"
+                      onClick={() => setOpen(false)}
                     >
                       {page.name}
                     </Link>
@@ -189,6 +189,7 @@ export default function Navigation() {
                           <Link
                             href={item.href}
                             className="mt-6 block font-medium text-gray-900"
+                            onClick={() => setOpen(false)}
                           >
                             <span
                               aria-hidden="true"
@@ -196,9 +197,6 @@ export default function Navigation() {
                             />
                             {item.name}
                           </Link>
-                          <p aria-hidden="true" className="mt-1">
-                            Shop now
-                          </p>
                         </div>
                       ))}
                     </div>
@@ -212,6 +210,7 @@ export default function Navigation() {
                             <Link
                               href={service.href}
                               className="-m-2 block p-2 text-gray-500"
+                              onClick={() => setOpen(false)}
                             >
                               {service.name}
                             </Link>
@@ -226,7 +225,6 @@ export default function Navigation() {
           </DialogPanel>
         </div>
       </Dialog>
-
       <header className="relative bg-white">
         <nav
           aria-label="Top"
@@ -243,19 +241,19 @@ export default function Navigation() {
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon aria-hidden="true" className="size-6" />
               </button>
-
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <Link href="#">
-                  <span className="sr-only">Your Company</span>
-                  <img
+                <Link href="/">
+                  <span className="sr-only">BRD</span>
+                  <Image
+                    width={37}
+                    height={56}
                     alt=""
                     src="/адвокатско-дружество-brd-logo.svg"
                     className="h-14 w-auto"
                   />
                 </Link>
               </div>
-
               {/* Flyout menus */}
               <PopoverGroup className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
@@ -296,7 +294,6 @@ export default function Navigation() {
                           aria-hidden="true"
                           className="absolute inset-0 top-1/2 bg-white shadow-sm"
                         />
-
                         <div className="relative bg-white">
                           <div className="mx-auto max-w-7xl px-8">
                             <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-6">
@@ -321,9 +318,6 @@ export default function Navigation() {
                                       />
                                       {item.name}
                                     </Link>
-                                    <p aria-hidden="true" className="mt-1">
-                                      Shop now
-                                    </p>
                                   </div>
                                 ))}
                               </div>
