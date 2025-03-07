@@ -1,28 +1,23 @@
-const people = [
-  {
-    name: "Ивайло Бурков",
-    role: "Партньор",
-    imageUrl: "/team/ivailo_burkov.jpg",
-    bio: "Адвокат Ивайло Бурков завършва юридическото си образование в Софийския университет „Св. Климент Охридски“ през 2006 г. Притежава солиден опит в медийния сектор, който натрупва при работата си с водещите радио- и телевизионни оператори в България.",
-    linkedinUrl: "https://www.linkedin.com/in/ivailo-burkov-62957347",
-  },
-  {
-    name: "Панчо Радев",
-    role: "Управляващ партньор",
-    imageUrl: "/team/pancho_radev.jpg",
-    bio: "Завършил е Софийски Университет „Св. Климент Охридски“ през 1982 г. Практикува като адвокат от 1993 г. и притежава богат професионален опит в областта на облигационното и търговското право, семейното и наследственото право, трудовото право и вещното право.",
-    linkedinUrl: "https://www.linkedin.com/in/pancho-radev-73b54849",
-  },
-  {
-    name: "Красимира Дюлгерска",
-    role: "Управляващ партньор",
-    imageUrl: "/team/krasimira_djulgerska.jpg",
-    bio: "Завършва Софийски Университет „Св. Климент Охридски“ през 1996 г. Придобива богат опит като юрисконсулт в „Българска Агенция за Експортно Застраховане“ ЕАД и „Марш България“ ООД.",
-    linkedinUrl: "https://www.linkedin.com/in/krassimira-djulgerska-8a93b055",
-  },
-];
+"use client";
+
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { getMembers } from "../../services/members";
 
 export default function Team() {
+  const [members, setMembers] = useState([]);
+
+  // Fetch members from WordPress API on component mount
+  useEffect(() => {
+    const fetchMembers = async () => {
+      const membersData = await getMembers();
+      setMembers(membersData);
+    };
+
+    fetchMembers();
+  }, []);
+
   return (
     <div className="bg-white py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-20 px-6 lg:px-8 xl:grid-cols-5">
@@ -36,42 +31,37 @@ export default function Team() {
           </p>
         </div>
         <ul role="list" className="divide-y divide-gray-200 xl:col-span-3">
-          {people.map((person) => (
+          {members.map((member) => (
             <li
-              key={person.name}
+              key={member.id}
               className="flex flex-col gap-10 py-12 first:pt-0 last:pb-0 sm:flex-row"
             >
-              <img
-                alt=""
-                src={person.imageUrl}
-                className="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
-              />
+              <Link href={`/team/${member.slug}`}>
+                <Image
+                  width={250}
+                  height={375}
+                  alt={member.name}
+                  src={member.profilepircture}
+                  className="rounded-2xl object-cover"
+                />
+              </Link>
               <div className="max-w-xl flex-auto">
-                <h3 className="text-lg/8 font-semibold tracking-tight text-gray-900">
-                  {person.name}
-                </h3>
-                <p className="text-base/7 text-gray-600">{person.role}</p>
-                <p className="mt-6 text-base/7 text-gray-600">{person.bio}</p>
+                <Link href={`/team/${member.slug}`}>
+                  <h3 className="text-lg/8 font-semibold tracking-tight text-gray-900">
+                    {member.name}
+                  </h3>
+                  <p className="text-base/7 text-gray-600">{member.position}</p>
+                  <p className="mt-6 text-base/7 text-gray-600">
+                    {member.description.length > 100
+                      ? `${member.description.slice(0, 150)}...`
+                      : member.description}
+                  </p>
+                </Link>
                 <ul role="list" className="mt-6 flex gap-x-6">
                   <li>
-                    <a
-                      href={person.xUrl}
-                      className="text-gray-400 hover:text-gray-500"
-                    >
-                      <span className="sr-only">X</span>
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        aria-hidden="true"
-                        className="size-5"
-                      >
-                        <path d="M11.4678 8.77491L17.2961 2H15.915L10.8543 7.88256L6.81232 2H2.15039L8.26263 10.8955L2.15039 18H3.53159L8.87581 11.7878L13.1444 18H17.8063L11.4675 8.77491H11.4678ZM9.57608 10.9738L8.95678 10.0881L4.02925 3.03974H6.15068L10.1273 8.72795L10.7466 9.61374L15.9156 17.0075H13.7942L9.57608 10.9742V10.9738Z" />
-                      </svg>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={person.linkedinUrl}
+                    <Link
+                      href={member.linkedin.url}
+                      target={member.linkedin.target}
                       className="text-gray-400 hover:text-gray-500"
                     >
                       <span className="sr-only">LinkedIn</span>
@@ -87,7 +77,7 @@ export default function Team() {
                           fillRule="evenodd"
                         />
                       </svg>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
