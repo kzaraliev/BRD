@@ -1,8 +1,5 @@
 import { fetchAPI } from "./api";
 
-const CACHE_KEY = "member_info";
-const CACHE_EXPIRATION = 20 * 1000; // 20 seconds in milliseconds
-
 /**
  * Get all members
  * @returns {Promise<Array>} - List of members
@@ -33,26 +30,8 @@ export const getMembers = async () => {
  * @returns {Promise<Object|null>} - Member data
  */
 export const getMemberInfo = async (slug) => {
-  const cachedData = localStorage.getItem(CACHE_KEY);
-
-  if (cachedData) {
-    const { data, timestamp } = JSON.parse(cachedData);
-
-    if (Date.now() - timestamp < CACHE_EXPIRATION) {
-      return data; // Return cached data if still valid
-    }
-  }
-
   // Fetch new data from API
-  const data = await fetchAPI(`members?slug=${slug}&_fields=acf`);
-  const memberInfo = data && data.length > 0 ? data[0].acf : null;
-
-  if (memberInfo) {
-    localStorage.setItem(
-      CACHE_KEY,
-      JSON.stringify({ data: memberInfo, timestamp: Date.now() })
-    );
-  }
-
-  return memberInfo;
+  const data = await fetchAPI(`members?slug=${slug}&_fields=acf&acf_format=standard`);
+  
+  return data && data.length > 0 ? data[0].acf : null;
 };

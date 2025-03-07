@@ -8,7 +8,6 @@ import { getMembers } from "../../services/members";
 export default function Team() {
   const [members, setMembers] = useState([]);
 
-  // Fetch members from WordPress API on component mount
   useEffect(() => {
     const fetchMembers = async () => {
       const membersData = await getMembers();
@@ -51,11 +50,15 @@ export default function Team() {
                     {member.name}
                   </h3>
                   <p className="text-base/7 text-gray-600">{member.position}</p>
-                  <p className="mt-6 text-base/7 text-gray-600">
-                    {member.description.length > 100
-                      ? `${member.description.slice(0, 150)}...`
-                      : member.description}
-                  </p>
+                  <p
+                    className="mt-6 text-base/7 text-gray-600 prose"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        member.description.length > 100
+                          ? `${member.description.slice(0, 200)}...`
+                          : member.description,
+                    }}
+                  />
                 </Link>
                 <ul role="list" className="mt-6 flex gap-x-6">
                   <li>
