@@ -40,9 +40,9 @@ export default async function PostPage({ params }) {
       meta.og_image && meta.og_image.length > 0 ? meta.og_image[0].url : "";
 
     return (
-      <div className="bg-white py-24 sm:py-32">
+      <div className="bg-white py-12 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <article className="mx-auto max-w-5xl">
+          <article className="mx-auto max-w-8xl w-full">
             {ogImage && (
               <img
                 src={ogImage}
@@ -60,7 +60,7 @@ export default async function PostPage({ params }) {
               {new Date(post[0].date).toLocaleDateString()}
             </time>
             <div
-              className="mt-8 prose prose-lg text-gray-600"
+              className="mt-8 prose prose-lg text-gray-600 flex flex-col max-w-full"
               dangerouslySetInnerHTML={{ __html: post[0].content.rendered }}
             />
           </article>

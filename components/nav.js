@@ -248,7 +248,11 @@ export default function Navigation() {
               <div className="ml-4 flex lg:ml-0">
                 <Link href="#">
                   <span className="sr-only">Your Company</span>
-                  <img alt="" src="/brd_menu_logo.png" className="h-8 w-auto" />
+                  <img
+                    alt=""
+                    src="/адвокатско-дружество-brd-logo.svg"
+                    className="h-14 w-auto"
+                  />
                 </Link>
               </div>
 

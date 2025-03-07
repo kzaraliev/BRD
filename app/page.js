@@ -5,6 +5,7 @@ import CTA from "../components/cta";
 import Clients from "../components/clients";
 import Newsletter from "../components/newsletter";
 import Testimonial from "../components/testimonial";
+import Lastestposts from "../components/latestposts";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Clients />
       <Newsletter />
       <Testimonial />
+      <Lastestposts />
     </>
   );
 }

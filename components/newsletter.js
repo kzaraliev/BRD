@@ -7,11 +7,11 @@ export default function Newsletter() {
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
           <div className="max-w-xl lg:max-w-lg">
             <h2 className="text-4xl font-semibold tracking-tight text-white">
-              Subscribe to our newsletter
+              Абонирайте се за нашия бюлетин
             </h2>
             <p className="mt-4 text-lg text-gray-300">
-              Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing
-              velit quis. Duis tempor incididunt dolore.
+              Получавайте ценни правни съвети, анализи и актуални новини
+              директно във вашата поща.
             </p>
             <div className="mt-6 flex max-w-md gap-x-4">
               <label htmlFor="email-address" className="sr-only">
@@ -43,11 +43,12 @@ export default function Newsletter() {
                 />
               </div>
               <dt className="mt-4 text-base font-semibold text-white">
-                Weekly articles
+                Седмични статии
               </dt>
               <dd className="mt-2 text-base/7 text-gray-400">
-                Non laboris consequat cupidatat laborum magna. Eiusmod non irure
-                cupidatat duis commodo amet.
+                Всяка седмица подбираме за вас най-актуалните правни теми и
+                експертни анализи. Бъдете информирани, защитени и винаги една
+                стъпка напред.
               </dd>
             </div>
             <div className="flex flex-col items-start">
@@ -58,11 +59,11 @@ export default function Newsletter() {
                 />
               </div>
               <dt className="mt-4 text-base font-semibold text-white">
-                No spam
+                Без спам
               </dt>
               <dd className="mt-2 text-base/7 text-gray-400">
-                Officia excepteur ullamco ut sint duis proident non adipisicing.
-                Voluptate incididunt anim.
+                Обещаваме: само полезна информация, без излишни съобщения.
+                Вашето време е ценно, затова ви изпращаме само най-важното.
               </dd>
             </div>
           </dl>
