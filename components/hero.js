@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -61,8 +62,10 @@ export default function Hero() {
           </div>
         </div>
         <div className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <img
-            alt=""
+          <Image
+            width={760}
+            height={775}
+            alt="hero-baner"
             src="/lawyer.jpg"
             className="aspect-3/2 object-cover lg:aspect-auto lg:size-full"
           />
