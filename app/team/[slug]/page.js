@@ -56,7 +56,7 @@ export default async function MemberDetails({ params }) {
             </Link>
           </div>
         </div>
-        <div className="lg:w-2/3 w-full p-6">
+        <div className="lg:w-2/3 w-full p-4">
           <div
             className="text-gray-700 prose leading-relaxed"
             dangerouslySetInnerHTML={{
