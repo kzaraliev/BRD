@@ -35,7 +35,7 @@ export default function Team() {
               key={member.id}
               className="flex flex-col gap-10 py-12 first:pt-0 last:pb-0 sm:flex-row"
             >
-              <Link href={`/team/${member.slug}`}>
+              <Link href={`/team/${member.slug}`} prefetch={true}>
                 <Image
                   width={250}
                   height={375}
@@ -45,7 +45,7 @@ export default function Team() {
                 />
               </Link>
               <div className="max-w-xl flex-auto">
-                <Link href={`/team/${member.slug}`}>
+                <Link href={`/team/${member.slug}`} prefetch={true}>
                   <h3 className="text-lg/8 font-semibold tracking-tight text-gray-900">
                     {member.name}
                   </h3>
