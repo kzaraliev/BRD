@@ -1,28 +1,23 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-const people = [
-  {
-    name: "Ивайло Бурков",
-    role: "Партньор",
-    imageUrl: "/team/ivailo_burkov.jpg",
-    linkedinUrl: "https://www.linkedin.com/in/ivailo-burkov-62957347",
-  },
-  {
-    name: "Панчо Радев",
-    role: "Управляващ партньор",
-    imageUrl: "/team/pancho_radev.jpg",
-    linkedinUrl: "https://www.linkedin.com/in/pancho-radev-73b54849",
-  },
-  {
-    name: "Красимира Дюлгерска",
-    role: "Управляващ партньор",
-    imageUrl: "/team/krasimira_djulgerska.jpg",
-    linkedinUrl: "https://www.linkedin.com/in/krassimira-djulgerska-8a93b055",
-  },
-];
+import { getMembers } from "../services/members";
 
 export default function Team() {
+  const [members, setMembers] = useState([]);
+
+  // Fetch members from WordPress API on component mount
+  useEffect(() => {
+    const fetchMembers = async () => {
+      const membersData = await getMembers();
+      setMembers(membersData);
+    };
+
+    fetchMembers();
+  }, []);  
+
   return (
     <div className="bg-white py-24 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -41,25 +36,26 @@ export default function Team() {
           role="list"
           className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
         >
-          {people.map((person) => (
-            <li key={person.name} className="flex flex-col items-center">
-              <Link href={`#`}>
+          {members.map((member) => (
+            <li key={member.id} className="flex flex-col items-center">
+              <Link href={`/team/${member.slug}`}>
                 <Image
                   width={250}
                   height={375}
-                  alt={person.name}
-                  src={person.imageUrl}
+                  alt={member.name}
+                  src={member.profilepircture}
                   className="rounded-2xl object-cover"
                 />
                 <h3 className="mt-6 text-lg/8 font-semibold tracking-tight text-gray-900">
-                  {person.name}
+                  {member.name}
                 </h3>
-                <p className="text-base/7 text-gray-600">{person.role}</p>
+                <p className="text-base/7 text-gray-600">{member.position}</p>
               </Link>
               <ul role="list" className="mt-6 flex gap-x-6">
                 <li>
-                  <a
-                    href={person.linkedinUrl}
+                  <Link
+                    href={member.linkedin.url}
+                    target={member.linkedin.target}
                     className="text-gray-400 hover:text-gray-500"
                   >
                     <span className="sr-only">LinkedIn</span>
@@ -75,7 +71,7 @@ export default function Team() {
                         fillRule="evenodd"
                       />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
