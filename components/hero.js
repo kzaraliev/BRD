@@ -33,13 +33,13 @@ export default function Hero() {
                 </p>
                 <div className="mt-10 flex items-center gap-x-6">
                   <Link
-                    href="#"
+                    href="/services"
                     className="rounded-md bg-[#95161C] hover:bg-gray-300 hover:text-[#000000] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Услуги
                   </Link>
                   <Link
-                    href="#"
+                    href="/contact"
                     className="text-sm/6 font-semibold text-gray-900"
                   >
                     Контакти <span aria-hidden="true">→</span>
@@ -49,7 +49,7 @@ export default function Hero() {
                   <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                     Полезни статии и новини от нашия блог.{" "}
                     <Link
-                      href="#"
+                      href="/blog"
                       className="font-semibold whitespace-nowrap text-[#95161C]"
                     >
                       <span aria-hidden="true" className="absolute inset-0" />
