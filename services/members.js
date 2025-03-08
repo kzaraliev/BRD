@@ -5,7 +5,9 @@ import { fetchAPI } from "./api";
  * @returns {Promise<Array>} - List of members
  */
 export const getMembers = async () => {
-  const fetchedMembers = await fetchAPI("members?_fields=id,acf,slug&acf_format=standard");
+  const fetchedMembers = await fetchAPI(
+    "members?_fields=id,acf,slug&acf_format=standard"
+  );
 
   return fetchedMembers.map((member) => ({
     id: member.id,
@@ -20,7 +22,7 @@ export const getMembers = async () => {
       target: member.acf.linkedin.target,
     },
     slug: member.slug,
-    profilepircture: member.acf.profilepircture
+    profilepircture: member.acf.profilepircture,
   }));
 };
 
@@ -31,7 +33,9 @@ export const getMembers = async () => {
  */
 export const getMemberInfo = async (slug) => {
   // Fetch new data from API
-  const data = await fetchAPI(`members?slug=${slug}&_fields=acf&acf_format=standard`);
-  
+  const data = await fetchAPI(
+    `members?slug=${slug}&_fields=acf&acf_format=standard`
+  );
+
   return data && data.length > 0 ? data[0].acf : null;
 };

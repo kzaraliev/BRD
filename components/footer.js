@@ -1,3 +1,7 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
 const navigation = {
   solutions: [
     { name: "Marketing", href: "#" },
@@ -88,8 +92,55 @@ const navigation = {
 };
 
 export default function Example() {
+  const [year, setYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    const now = new Date();
+    const nextYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
+    const timeUntilNextYear = nextYear - now;
+
+    const timer = setTimeout(
+      () => setYear(nextYear.getFullYear()),
+      timeUntilNextYear
+    );
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <footer className="bg-white">
+    <footer className="relative bg-white border border-t-[#eaeaea]">
+      {/* Вълнообразни линии с по-разпръснати краища */}
+      <div className="absolute right-0 top-0 bottom-0 z-10 w-1/3 h-full flex items-center justify-center pointer-events-none">
+        <svg
+          className="absolute w-full h-full opacity-80 hidden md:block sm:viewBox-[-150_0_500_1000] md:viewBox-[-150_0_500_800] lg:viewBox-[0_0_500_800]"
+          viewBox="0 0 500 800"
+          fill="none"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M80 0 C160 150, 340 250, 420 400 S480 600, 350 800"
+            stroke="#95161C"
+            strokeWidth="1.5"
+            fill="none"
+          />
+          <path
+            d="M140 0 C180 170, 320 270, 440 420 S500 650, 320 800"
+            stroke="#95161C"
+            strokeWidth="1.2"
+            opacity="0.8"
+            fill="none"
+          />
+          <path
+            d="M200 0 C200 190, 300 290, 460 440 S520 700, 290 800"
+            stroke="#95161C"
+            strokeWidth="1"
+            opacity="0.6"
+            fill="none"
+          />
+        </svg>
+      </div>
+      {/* END Blog archive effect */}
       <div className="mx-auto max-w-7xl px-6 pt-16 pb-8 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <img
@@ -196,7 +247,7 @@ export default function Example() {
             <div className="mt-4 sm:mt-0 sm:ml-4 sm:shrink-0">
               <button
                 type="submit"
-                className="flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full items-center justify-center rounded-md bg-[#95161C] hover:bg-gray-300 cursor-pointer hover:text-[#000000] px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Subscribe
               </button>
@@ -217,7 +268,7 @@ export default function Example() {
             ))}
           </div>
           <p className="mt-8 text-sm/6 text-gray-600 md:order-1 md:mt-0">
-            &copy; 2024 Your Company, Inc. All rights reserved.
+            &copy; {year} BRD, Inc. All rights reserved.
           </p>
         </div>
       </div>

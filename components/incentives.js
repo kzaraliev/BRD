@@ -59,7 +59,7 @@ export default function Incentives() {
                   <h3 className="text-sm font-medium text-gray-900">
                     {incentive.name}
                   </h3>
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-2 text-sm text-white">
                     {incentive.description}
                   </p>
                 </div>
