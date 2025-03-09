@@ -8,7 +8,7 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
-  const perPage = 6; // Define how many posts per page
+  const perPage = 9; // Define how many posts per page
 
   // Fetch posts from WordPress API on component mount or page change
   useEffect(() => {
@@ -28,6 +28,14 @@ export default function Blog() {
 
     fetchPosts();
   }, [currentPage]);
+
+    // Scroll to top when page changes
+    useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, [currentPage]);
 
   return (
     <div className="bg-white py-24 sm:py-24">
