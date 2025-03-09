@@ -1,12 +1,12 @@
 import { fetchAPI } from "./api";
 
-/**
- * Get all posts
- * @returns {Promise<Array>} - List of posts
- */
-export const getPosts = async () => {
-    return await fetchAPI("posts");
-};
+// /**
+//  * Get all posts
+//  * @returns {Promise<Array>} - List of posts
+//  */
+// export const getPosts = async () => {
+//     return await fetchAPI("posts");
+// };
 
 /**
  * Get single post by slug
@@ -18,9 +18,9 @@ export const getPostBySlug = async (slug) => {
 };
 
 /**
- * Get all posts
+ * Get latest posts
  * @returns {Promise<Array>} - List of latest posts
  */
 export const getLatestPosts = async () => {
-    return await fetchAPI("posts?per_page=3")
+    return await fetchAPI("posts?per_page=3&_fields=id,slug,yoast_head_json,date,title,content")
 }

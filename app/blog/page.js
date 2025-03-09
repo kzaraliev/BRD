@@ -6,22 +6,32 @@ import Link from "next/link";
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const perPage = 6; // Define how many posts per page
 
-  // Fetch posts from WordPress API on component mount
+  // Fetch posts from WordPress API on component mount or page change
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsData = await getPosts();
-      setPosts(postsData);
+      const response = await fetch(
+        `https://brd.devclick.net/wp-json/wp/v2/posts?page=${currentPage}&per_page=${perPage}&_fields=id,yoast_head_json,date,slug,title,content`
+      );
+      const data = await response.json();
+      setPosts(data);
+
+      // Get total pages from headers
+      const totalPagesHeader = response.headers.get("x-wp-totalpages");
+      setTotalPages(Number(totalPagesHeader) || 1);
     };
 
     fetchPosts();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className="bg-white py-24 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">
+          <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
             От нашия блог
           </h2>
           <p className="mt-2 text-lg/8 text-gray-600">
@@ -68,29 +78,37 @@ export default function Blog() {
                         : "No description available"}
                     </p>
                   </div>
-                  <div className="relative mt-8 flex items-center gap-x-4">
-                    <img
-                      alt="Author Image"
-                      src={
-                        post.yoast_head_json?.schema?.["@graph"]?.find(
-                          (person) => person["@type"] === "Person"
-                        )?.image?.url || "https://via.placeholder.com/50"
-                      }
-                      className="size-10 rounded-full bg-gray-100"
-                    />
-                    <div className="text-sm/6">
-                      <p className="font-semibold text-gray-900">
-                        {post.yoast_head_json?.author || "Unknown Author"}
-                      </p>
-                      <p className="text-gray-600">Author</p>
-                    </div>
-                  </div>
                 </div>
               </article>
             ))
           ) : (
             <p className="text-gray-600">No posts found.</p>
           )}
+        </div>
+
+        {/* Pagination Controls */}
+        <div className="mt-10 flex justify-center">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 mx-2 bg-gray-200 rounded-md disabled:opacity-50"
+          >
+            Previous
+          </button>
+
+          <span className="px-4 py-2 mx-2">
+            Page {currentPage} of {totalPages}
+          </span>
+
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 mx-2 bg-gray-200 rounded-md disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
