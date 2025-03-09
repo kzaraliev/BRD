@@ -1,6 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Pacifico } from "next/font/google";
+
+const pacifico = Pacifico({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400"],
+  style: ["normal"],
+  display: "swap",
+});
 
 const navigation = {
   solutions: [
@@ -91,25 +99,22 @@ const navigation = {
   ],
 };
 
-export default function Example() {
+export default function Footer() {
   const [year, setYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
-    const now = new Date();
-    const nextYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
-    const timeUntilNextYear = nextYear - now;
+    const interval = setInterval(() => {
+      const currentYear = new Date().getFullYear();
+      if (currentYear !== year) {
+        setYear(currentYear);
+      }
+    }, 1000 * 60 * 60); // Проверява на всеки 1 час
 
-    const timer = setTimeout(
-      () => setYear(nextYear.getFullYear()),
-      timeUntilNextYear
-    );
-
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearInterval(interval);
+  }, [year]);
 
   return (
     <footer className="relative bg-white border border-t-[#eaeaea]">
-      {/* Вълнообразни линии с по-разпръснати краища */}
       <div className="absolute right-0 top-0 bottom-0 z-10 w-1/3 h-full flex items-center justify-center pointer-events-none">
         <svg
           className="absolute w-full h-full opacity-80 hidden md:block sm:viewBox-[-150_0_500_1000] md:viewBox-[-150_0_500_800] lg:viewBox-[0_0_500_800]"
@@ -140,14 +145,24 @@ export default function Example() {
           />
         </svg>
       </div>
-      {/* END Blog archive effect */}
       <div className="mx-auto max-w-7xl px-6 pt-16 pb-8 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <img
-            alt="Адвокатско дружество Бурков, Радев, Дюлгерска"
-            src="/адвокатско-дружество-brd-logo.svg"
-            className="h-14"
-          />
+          <div>
+            <img
+              alt="Адвокатско дружество Бурков, Радев, Дюлгерска"
+              src="/адвокатско-дружество-brd-logo.svg"
+              className="h-14"
+            />
+            <div className="mt-8 text-lg">
+              <p className="text-[1.675rem]">АДВОКАТСКО ДРУЖЕСТВО</p>
+              <p className="text-[1.475rem]">Бурков, Радев, Дюлгерска</p>
+              <p
+                className={`${pacifico.className} text-[1.475rem] text-[#95161C]`}
+              >
+                в защита на вашите интереси
+              </p>
+            </div>
+          </div>
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
@@ -224,11 +239,11 @@ export default function Example() {
         <div className="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24 lg:flex lg:items-center lg:justify-between">
           <div>
             <h3 className="text-sm/6 font-semibold text-gray-900">
-              Subscribe to our newsletter
+              Абонирайте се за нашия бюлетин
             </h3>
             <p className="mt-2 text-sm/6 text-gray-600">
-              The latest news, articles, and resources, sent to your inbox
-              weekly.
+              Получавайте ценни правни съвети, анализи и актуални новини
+              директно във вашата поща.
             </p>
           </div>
           <form className="mt-6 sm:flex sm:max-w-md lg:mt-0">
@@ -240,7 +255,7 @@ export default function Example() {
               name="email-address"
               type="email"
               required
-              placeholder="Enter your email"
+              placeholder="Въведете Вашия имейл"
               autoComplete="email"
               className="w-full min-w-0 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:w-56 sm:text-sm/6"
             />
@@ -249,7 +264,7 @@ export default function Example() {
                 type="submit"
                 className="flex w-full items-center justify-center rounded-md bg-[#95161C] hover:bg-gray-300 cursor-pointer hover:text-[#000000] px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Subscribe
+                Абонирайте се
               </button>
             </div>
           </form>
