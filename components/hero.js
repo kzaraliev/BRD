@@ -65,6 +65,7 @@ export default function Hero() {
           <Image
             width={760}
             height={775}
+            loading="eager"
             alt="hero-baner"
             src="/lawyer.jpg"
             className="aspect-3/2 object-cover lg:aspect-auto lg:size-full"
