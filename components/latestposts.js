@@ -67,7 +67,7 @@ export default function LatestPosts() {
                           }
                           className="size-10 rounded-full bg-gray-100"
                         />
-                        <div className="text-sm/6">
+                        <div className="text-sm/6 text-left">
                           <p className="font-semibold text-white">
                             {post.yoast_head_json?.author || "Unknown Author"}
                           </p>
