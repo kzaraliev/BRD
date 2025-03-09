@@ -86,27 +86,27 @@ export default async function Blog({ searchParams }) {
         )}
         {/* Pagination Controls */}
         <div className="mt-10 flex justify-center">
-          <Link
-            href={`/blog?page=${currentPage - 1}`}
-            className={`px-4 py-2 mx-2 bg-gray-200 rounded-md ${
-              currentPage === 1 ? "pointer-events-none opacity-50" : ""
-            }`}
-            prefetch={true}
-          >
-            Previous
-          </Link>
+          {currentPage > 1 && (
+            <Link
+              href={`/blog?page=${currentPage - 1}`}
+              className="px-4 py-2 mx-2 bg-gray-200 rounded-md"
+              prefetch={true}
+            >
+              Previous
+            </Link>
+          )}
           <span className="px-4 py-2 mx-2">
             Page {currentPage} of {totalPages}
           </span>
-          <Link
-            href={`/blog?page=${currentPage + 1}`}
-            className={`px-4 py-2 mx-2 bg-gray-200 rounded-md ${
-              currentPage === totalPages ? "pointer-events-none opacity-50" : ""
-            }`}
-            prefetch={true}
-          >
-            Next
-          </Link>
+          {currentPage < totalPages && (
+            <Link
+              href={`/blog?page=${currentPage + 1}`}
+              className="px-4 py-2 mx-2 bg-gray-200 rounded-md"
+              prefetch={true}
+            >
+              Next
+            </Link>
+          )}
         </div>
       </div>
     </div>
