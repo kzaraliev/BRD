@@ -68,7 +68,7 @@ export default function Hero() {
             priority
             alt="hero-baner"
             src="/lawyer.webp"
-            className="aspect-3/2 object-cover lg:aspect-auto lg:size-full"
+            className="w-auto h-auto max-w-full object-cover lg:w-full lg:h-auto"
           />
         </div>
       </div>
