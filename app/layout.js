@@ -7,8 +7,8 @@ import { Roboto } from "next/font/google";
 
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "700"], // Избери желаните тегла
-  style: ["normal", "italic"], // Опционално - добавя и курсив
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
