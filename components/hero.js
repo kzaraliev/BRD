@@ -65,8 +65,7 @@ export default function Hero() {
           <Image
             width={955}
             height={776}
-            loading="eager"
-            fetchPriority="high"
+            priority
             alt="hero-baner"
             src="/lawyer.webp"
             className="aspect-3/2 object-cover lg:aspect-auto lg:size-full"
