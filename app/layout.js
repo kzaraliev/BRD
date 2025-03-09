@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Footer from "../components/footer";
 import Navigation from "../components/nav";
 
@@ -19,6 +20,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bg">
+      <Head>
+        <link rel="preload" as="image" href="/lawyer.webp" type="image/webp" />
+      </Head>
       <body className={roboto.className}>
         <Navigation />
         {children}

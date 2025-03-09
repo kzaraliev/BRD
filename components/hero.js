@@ -63,14 +63,11 @@ export default function Hero() {
         </div>
         <div className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <Image
-            width={760}
-            height={775}
-            loading="eager"
-            rel="preload"
-            fetchpriority="high"
-            as="image"
+            width={955}
+            height={776}
+            priority
             alt="hero-baner"
-            src="/lawyer.jpg"
+            src="/lawyer.webp"
             className="aspect-3/2 object-cover lg:aspect-auto lg:size-full"
           />
         </div>
