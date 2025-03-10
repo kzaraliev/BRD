@@ -33,7 +33,7 @@ export default async function Services() {
             {services.map((service) => (
               <Link
                 href={`/services/${service.slug}`}
-                className="flex mt-8 mb-8 w-full max-w-full w-[100%]"
+                className="flex mt-8 mb-8 w-full max-w-full"
                 key={service.id}
                 prefetch={true}
               >
@@ -51,7 +51,7 @@ export default async function Services() {
                     />
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-gray-900/10 ring-inset" />
                   </div>
-                  <div className="flex flex-col w-full w-[100%]">
+                  <div className="flex flex-col w-full">
                     <div className="flex items-center gap-x-4 text-xs">
                       <time dateTime={service.date} className="text-gray-500">
                         {new Date(service.date).toLocaleDateString()}
