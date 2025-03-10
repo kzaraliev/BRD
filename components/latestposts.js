@@ -36,7 +36,7 @@ export default function LatestPosts() {
             <div className="mx-auto mt-16 grid !max-w-[80%] grid-cols-1 gap-x-8 gap-y-20 lg:mx-auto lg:max-w-none lg:grid-cols-3">
               {posts.length > 0 ? (
                 posts.map((post) => (
-                  <Link href={`/blog/${post.slug}`} key={post.id}>
+                  <Link href={`/blog/${post.slug}`} key={post.id} prefetch={true}>
                     <article className="flex flex-col items-start justify-between">
                       <div className="relative w-full">
                         <img

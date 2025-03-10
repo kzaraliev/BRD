@@ -38,7 +38,7 @@ export default function Team() {
         >
           {members.map((member) => (
             <li key={member.id} className="flex flex-col items-center">
-              <Link href={`/team/${member.slug}`}>
+              <Link href={`/team/${member.slug}`} prefetch={true}>
                 <Image
                   width={250}
                   height={375}
@@ -56,6 +56,7 @@ export default function Team() {
                   <Link
                     href={member.linkedin.url}
                     target={member.linkedin.target}
+                    prefetch={true}
                     className="text-gray-400 hover:text-gray-500"
                   >
                     <span className="sr-only">LinkedIn</span>
