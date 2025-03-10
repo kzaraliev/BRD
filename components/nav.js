@@ -24,6 +24,7 @@ import { getServicesNav } from "../services/services";
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [loading, setLoading] = useState(true); // Track loading state
   const [navigation, setNavigation] = useState({
     categories: [
       {
@@ -44,6 +45,7 @@ export default function Navigation() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const services = await getServicesNav();
 
         if (!services || !Array.isArray(services) || services.length === 0) {
@@ -82,6 +84,7 @@ export default function Navigation() {
             },
           ],
         }));
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching navigation data:", error);
       }
@@ -141,57 +144,68 @@ export default function Navigation() {
                   ))}
                 </TabList>
               </div>
-              <TabPanels as={Fragment}>
-                {navigation.categories.map((category) => (
-                  <TabPanel
-                    key={category.name}
-                    className="space-y-10 px-4 pt-10 pb-8"
-                  >
-                    <div className="grid grid-cols-2 gap-x-4">
-                      {category.featured.map((item) => (
-                        <div key={item.name} className="group relative text-sm">
-                          <Image
-                            width={136}
-                            height={136}
-                            alt={item.imageAlt}
-                            src={item.imageSrc}
-                            className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
-                          />
-                          <Link
-                            href={item.href}
-                            className="mt-6 block font-medium text-gray-900"
-                            onClick={() => setOpen(false)}
+              {/* Loader */}
+              {loading && (
+                <div className="flex justify-center py-10">
+                  <div className="w-12 h-12 border-4 border-gray-500 border-t-[#95161C] rounded-full animate-spin"></div>
+                </div>
+              )}
+              {!loading && (
+                <TabPanels as={Fragment}>
+                  {navigation.categories.map((category) => (
+                    <TabPanel
+                      key={category.name}
+                      className="space-y-10 px-4 pt-10 pb-8"
+                    >
+                      <div className="grid grid-cols-2 gap-x-4">
+                        {category.featured.map((item) => (
+                          <div
+                            key={item.name}
+                            className="group relative text-sm"
                           >
-                            <span
-                              aria-hidden="true"
-                              className="absolute inset-0 z-10"
+                            <Image
+                              width={136}
+                              height={136}
+                              alt={item.imageAlt}
+                              src={item.imageSrc}
+                              className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                             />
-                            {item.name}
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
-                    {category.services.map((service) => (
-                      <div key={service.id}>
-                        <ul
-                          role="list"
-                          className="mt-6 flex flex-col space-y-6"
-                        >
-                          <li key={service.name} className="flow-root">
                             <Link
-                              href={service.href}
-                              className="-m-2 block p-2 text-gray-500"
+                              href={item.href}
+                              className="mt-6 block font-medium text-gray-900"
                               onClick={() => setOpen(false)}
                             >
-                              {service.name}
+                              <span
+                                aria-hidden="true"
+                                className="absolute inset-0 z-10"
+                              />
+                              {item.name}
                             </Link>
-                          </li>
-                        </ul>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </TabPanel>
-                ))}
-              </TabPanels>
+                      {category.services.map((service) => (
+                        <div key={service.id}>
+                          <ul
+                            role="list"
+                            className="mt-6 flex flex-col space-y-6"
+                          >
+                            <li key={service.name} className="flow-root">
+                              <Link
+                                href={service.href}
+                                className="-m-2 block p-2 text-gray-500"
+                                onClick={() => setOpen(false)}
+                              >
+                                {service.name}
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      ))}
+                    </TabPanel>
+                  ))}
+                </TabPanels>
+              )}
             </TabGroup>
           </DialogPanel>
         </div>
@@ -267,51 +281,59 @@ export default function Navigation() {
                         />
                         <div className="relative bg-white">
                           <div className="mx-auto max-w-7xl px-8">
-                            <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-6">
-                              <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                {category.featured.map((item) => (
-                                  <div
-                                    key={item.name}
-                                    className="group relative text-base sm:text-sm"
-                                  >
-                                    <Image
-                                      width={280}
-                                      height={280}
-                                      alt={item.imageAlt}
-                                      src={item.imageSrc}
-                                      className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
-                                    />
-                                    <Link
-                                      href={item.href}
-                                      className="mt-6 block font-medium text-gray-900"
-                                    >
-                                      <span
-                                        aria-hidden="true"
-                                        className="absolute inset-0 z-10"
-                                      />
-                                      {item.name}
-                                    </Link>
-                                  </div>
-                                ))}
+                            {/* Loader */}
+                            {loading && (
+                              <div className="flex justify-center py-10">
+                                <div className="w-12 h-12 border-4 border-gray-500 border-t-[#95161C] rounded-full animate-spin"></div>
                               </div>
-                              <ul className="text-lg divide-y divide-gray-100 start-1 row-start-1 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
-                                {category.services.map((service) => (
-                                  <li
-                                    key={service.id}
-                                    className="flex gap-x-4 py-1 items-center"
-                                  >
-                                    <Link
-                                      className="min-w-0 w-full flex"
-                                      href={service.href}
+                            )}
+                            {!loading && (
+                              <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-6">
+                                <div className="col-start-2 grid grid-cols-2 gap-x-8">
+                                  {category.featured.map((item) => (
+                                    <div
+                                      key={item.name}
+                                      className="group relative text-base sm:text-sm"
                                     >
-                                      <p className="text-lg font-semibold text-gray-900 transition-colors duration-300 hover:text-[#95161C]">
-                                        {service.name}
-                                      </p>
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                                      <Image
+                                        width={280}
+                                        height={280}
+                                        alt={item.imageAlt}
+                                        src={item.imageSrc}
+                                        className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
+                                      />
+                                      <Link
+                                        href={item.href}
+                                        className="mt-6 block font-medium text-gray-900"
+                                      >
+                                        <span
+                                          aria-hidden="true"
+                                          className="absolute inset-0 z-10"
+                                        />
+                                        {item.name}
+                                      </Link>
+                                    </div>
+                                  ))}
+                                </div>
+                                <ul className="text-lg divide-y divide-gray-100 start-1 row-start-1 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+                                  {category.services.map((service) => (
+                                    <li
+                                      key={service.id}
+                                      className="flex gap-x-4 py-1 items-center"
+                                    >
+                                      <Link
+                                        className="min-w-0 w-full flex"
+                                        href={service.href}
+                                      >
+                                        <p className="text-lg font-semibold text-gray-900 transition-colors duration-300 hover:text-[#95161C]">
+                                          {service.name}
+                                        </p>
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </PopoverPanel>
