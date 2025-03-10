@@ -5,7 +5,12 @@ import { fetchAPI } from "./api";
  * @returns {Promise<Array>} - List of services
  */
 export const getServices = async () => {
-    return await fetchAPI("services?_fields=id,slug,yoast_head_json,date,title,content&per_page=100");
+  return await fetchAPI(
+    "services?_fields=id,slug,yoast_head_json,date,title,content&per_page=100",
+    {
+      next: { revalidate: 60 },
+    }
+  );
 };
 
 /**
@@ -13,7 +18,9 @@ export const getServices = async () => {
  * @returns {Promise<Array>} - List of services
  */
 export const getServicesNav = async () => {
-    return await fetchAPI("services?_fields=id,slug,yoast_head_json,title&per_page=16");
+  return await fetchAPI(
+    "services?_fields=id,slug,yoast_head_json,title&per_page=16"
+  );
 };
 
 /**
@@ -22,7 +29,9 @@ export const getServicesNav = async () => {
  * @returns {Promise<Object|null>} - Service data
  */
 export const getServiceBySlug = async (slug) => {
-    return await fetchAPI(`services?slug=${slug}&_fields=id,slug,yoast_head_json,date,title,content`);
+  return await fetchAPI(
+    `services?slug=${slug}&_fields=id,slug,yoast_head_json,date,title,content`
+  );
 };
 
 /**
@@ -31,5 +40,5 @@ export const getServiceBySlug = async (slug) => {
  * @returns {Promise<Array>} - List of services in category
  */
 export const getServicesByCategory = async (categoryId) => {
-    return await fetchAPI(`services?categories=${categoryId}`);
+  return await fetchAPI(`services?categories=${categoryId}`);
 };
