@@ -1,21 +1,13 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getMembers } from "../../services/members";
 
-export default function Team() {
-  const [members, setMembers] = useState([]);
+export default async function Team() {
+  const members = await getMembers();
 
-  useEffect(() => {
-    const fetchMembers = async () => {
-      const membersData = await getMembers();
-      setMembers(membersData);
-    };
-
-    fetchMembers();
-  }, []);
+  if (!members || members.length === 0) {
+    throw new Error("Team members not found");
+  }
 
   return (
     <div className="bg-white py-24 md:py-32">
@@ -50,7 +42,7 @@ export default function Team() {
                     {member.name}
                   </h3>
                   <p className="text-base/7 text-gray-600">{member.position}</p>
-                  <p
+                  <div
                     className="mt-6 text-base/7 text-gray-600 prose"
                     dangerouslySetInnerHTML={{
                       __html:
