@@ -24,7 +24,22 @@ import { getServicesNav } from "../services/services";
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [navigation, setNavigation] = useState({ categories: [], pages: [] });
+  const [navigation, setNavigation] = useState({
+    categories: [
+      {
+        id: "categories",
+        name: "Услуги",
+        featured: [],
+        services: [],
+      },
+    ],
+    pages: [
+      { name: "Начало", href: "/" },
+      { name: "Екип", href: "/team" },
+      { name: "Блог", href: "/blog" },
+      { name: "Контакти", href: "/contact" },
+    ],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,48 +48,40 @@ export default function Navigation() {
 
         if (!services || !Array.isArray(services) || services.length === 0) {
           console.warn("No services found from API");
-          setNavigation({ categories: [], pages: [] });
           return;
         }
 
-        console.log(services);
-
         const featured = services.slice(0, 2);
         const remainingServices = services.slice(2);
-        //post.yoast_head_json?.schema?.["@graph"]?.find(  (person) => person["@type"] === "Person" )?.image?.url
-        const categoriesWithServices = [
-          {
-            id: "categories",
-            name:
-              remainingServices[0].yoast_head_json?.schema?.["@graph"]
-                ?.find((item) => item["@type"] === "BreadcrumbList") // намира обекта
-                ?.itemListElement?.find((element) => element.position === 2) // намира елемента с позиция 2
-                ?.name || "Услуги", // взима стойността на name
-            featured: featured.map((service) => ({
-              name: service.title.rendered,
-              href: `/services/${service.slug}`,
-              imageSrc:
-                service.yoast_head_json?.og_image?.[0]?.url ||
-                "https://via.placeholder.com/360x240",
-              imageAlt: service.title.rendered,
-            })),
-            services: remainingServices.map((service) => ({
-              id: service.id,
-              name: service.title.rendered,
-              href: `/services/${service.slug}`,
-            })),
-          },
-        ];
 
-        setNavigation({
-          categories: categoriesWithServices,
-          pages: [
-            { name: "Начало", href: "/" },
-            { name: "Екип", href: "/team" },
-            { name: "Блог", href: "/blog" },
-            { name: "Контакти", href: "/contact" },
+        const categoryName =
+          remainingServices[0]?.yoast_head_json?.schema?.["@graph"]
+            ?.find((item) => item["@type"] === "BreadcrumbList")
+            ?.itemListElement?.find((element) => element.position === 2)
+            ?.name || "Услуги";
+
+        setNavigation((prev) => ({
+          ...prev,
+          categories: [
+            {
+              id: "categories",
+              name: categoryName,
+              featured: featured.map((service) => ({
+                name: service.title.rendered,
+                href: `/services/${service.slug}`,
+                imageSrc:
+                  service.yoast_head_json?.og_image?.[0]?.url ||
+                  "https://via.placeholder.com/360x240",
+                imageAlt: service.title.rendered,
+              })),
+              services: remainingServices.map((service) => ({
+                id: service.id,
+                name: service.title.rendered,
+                href: `/services/${service.slug}`,
+              })),
+            },
           ],
-        });
+        }));
       } catch (error) {
         console.error("Error fetching navigation data:", error);
       }
