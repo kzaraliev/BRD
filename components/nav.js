@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -16,110 +16,72 @@ import {
   TabPanels,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 import Image from "next/image";
-
-const navigation = {
-  categories: [
-    {
-      id: "services",
-      name: "Услуги",
-      featured: [
-        {
-          name: "Търговско и дружествено право",
-          href: "#",
-          imageSrc: "/commercial_company_law.jpg",
-          imageAlt: "Търговско и дружествено право ",
-        },
-        {
-          name: "Вещно право",
-          href: "#",
-          imageSrc: "/property_law.jpg",
-          imageAlt: "Вещно право",
-        },
-      ],
-      services: [
-        {
-          id: "labor_and_social_security_law",
-          name: "Трудово и осигурително право",
-          href: "#",
-        },
-        {
-          id: "family_and_inheritance_law",
-          name: "Семейно и наследствено право",
-          href: "#",
-        },
-        {
-          id: "administrative_law_and_process",
-          name: "Административно право и процес",
-          href: "#",
-        },
-        {
-          id: "intellectual_and_industrial_property",
-          name: "Интелектуална и индустриална собственост",
-          href: "#",
-        },
-        {
-          id: "media_law",
-          name: "Медийно право",
-          href: "#",
-        },
-        {
-          id: "advertising_law",
-          name: "Реклама",
-          href: "#",
-        },
-        {
-          id: "internet_law",
-          name: "Интернет",
-          href: "#",
-        },
-        {
-          id: "competition_law",
-          name: "Конкурентно право",
-          href: "#",
-        },
-        {
-          id: "non_governmental_sector",
-          name: "Неправителствен сектор",
-          href: "#",
-        },
-        {
-          id: "mediation",
-          name: "Медиация",
-          href: "#",
-        },
-        {
-          id: "litigation_representation",
-          name: "Процесуално представителство",
-          href: "#",
-        },
-        {
-          id: "public_procurement",
-          name: "Обществени поръчки",
-          href: "#",
-        },
-        {
-          id: "personal_data_protection",
-          name: "Защита на личните данни",
-          href: "#",
-        },
-      ],
-    },
-  ],
-  pages: [
-    { name: "Начало", href: "/" },
-    { name: "Екип", href: "/team" },
-    { name: "Блог", href: "/blog" },
-    { name: "Контакти", href: "/contact" },
-  ],
-};
+import { getServicesNav } from "../services/services";
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [navigation, setNavigation] = useState({ categories: [], pages: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const services = await getServicesNav();
+
+        if (!services || !Array.isArray(services) || services.length === 0) {
+          console.warn("No services found from API");
+          setNavigation({ categories: [], pages: [] });
+          return;
+        }
+
+        console.log(services);
+
+        const featured = services.slice(0, 2);
+        const remainingServices = services.slice(2);
+        //post.yoast_head_json?.schema?.["@graph"]?.find(  (person) => person["@type"] === "Person" )?.image?.url
+        const categoriesWithServices = [
+          {
+            id: "categories",
+            name:
+              remainingServices[0].yoast_head_json?.schema?.["@graph"]
+                ?.find((item) => item["@type"] === "BreadcrumbList") // намира обекта
+                ?.itemListElement?.find((element) => element.position === 2) // намира елемента с позиция 2
+                ?.name || "Услуги", // взима стойността на name
+            featured: featured.map((service) => ({
+              name: service.title.rendered,
+              href: `/services/${service.slug}`,
+              imageSrc:
+                service.yoast_head_json?.og_image?.[0]?.url ||
+                "https://via.placeholder.com/360x240",
+              imageAlt: service.title.rendered,
+            })),
+            services: remainingServices.map((service) => ({
+              id: service.id,
+              name: service.title.rendered,
+              href: `/services/${service.slug}`,
+            })),
+          },
+        ];
+
+        setNavigation({
+          categories: categoriesWithServices,
+          pages: [
+            { name: "Начало", href: "/" },
+            { name: "Екип", href: "/team" },
+            { name: "Блог", href: "/blog" },
+            { name: "Контакти", href: "/contact" },
+          ],
+        });
+      } catch (error) {
+        console.error("Error fetching navigation data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="bg-white sticky shadow-md top-0 block w-full z-50">
@@ -181,7 +143,9 @@ export default function Navigation() {
                     <div className="grid grid-cols-2 gap-x-4">
                       {category.featured.map((item) => (
                         <div key={item.name} className="group relative text-sm">
-                          <img
+                          <Image
+                            width={136}
+                            height={136}
                             alt={item.imageAlt}
                             src={item.imageSrc}
                             className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
@@ -303,7 +267,9 @@ export default function Navigation() {
                                     key={item.name}
                                     className="group relative text-base sm:text-sm"
                                   >
-                                    <img
+                                    <Image
+                                      width={280}
+                                      height={280}
                                       alt={item.imageAlt}
                                       src={item.imageSrc}
                                       className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
