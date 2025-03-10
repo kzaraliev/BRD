@@ -16,18 +16,6 @@ export default function Hero() {
               <polygon points="0,0 90,0 50,100 0,100" />
             </svg>
             <div className="relative px-6 py-12 sm:py-12 lg:px-8 lg:py-14 lg:pr-0">
-              <div className="hidden mt-8 sm:mb-10 sm:flex">
-                <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                  Полезни статии и новини от нашия блог.{" "}
-                  <Link
-                    href="/blog"
-                    className="font-semibold whitespace-nowrap text-[#95161C]"
-                  >
-                    <span aria-hidden="true" className="absolute inset-0" />
-                    Вижте повече <span aria-hidden="true">&rarr;</span>
-                  </Link>
-                </div>
-              </div>
               <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
                 <h1 className="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl font-display">
                   Адвокатско дружество
@@ -55,6 +43,18 @@ export default function Hero() {
                   >
                     Контакти <span aria-hidden="true">→</span>
                   </Link>
+                </div>
+                <div className="hidden mt-8 sm:mb-10 sm:flex">
+                  <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                    Полезни статии и новини от нашия блог.{" "}
+                    <Link
+                      href="/blog"
+                      className="font-semibold whitespace-nowrap text-[#95161C]"
+                    >
+                      <span aria-hidden="true" className="absolute inset-0" />
+                      Вижте повече <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
