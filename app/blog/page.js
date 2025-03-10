@@ -92,11 +92,11 @@ export default async function Blog({ searchParams }) {
               className="px-4 py-2 mx-2 bg-gray-200 rounded-md"
               prefetch={true}
             >
-              Previous
+              Предишна
             </Link>
           )}
           <span className="px-4 py-2 mx-2">
-            Page {currentPage} of {totalPages}
+            Страница {currentPage} от {totalPages}
           </span>
           {currentPage < totalPages && (
             <Link
@@ -104,7 +104,7 @@ export default async function Blog({ searchParams }) {
               className="px-4 py-2 mx-2 bg-gray-200 rounded-md"
               prefetch={true}
             >
-              Next
+              Следваща
             </Link>
           )}
         </div>
