@@ -1,6 +1,60 @@
+"use client";
+import { useState } from "react";
+
 import { CalendarDaysIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
+import Swal from "sweetalert2";
 
 export default function Newsletter() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!email) {
+      Swal.fire({
+        icon: "error",
+        title: "Грешка при абонирането!",
+        text: "Моля, опитайте отново по-късно.",
+      });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setEmail("");
+        Swal.fire({
+          icon: "success",
+          title: "Успешен абонамент!",
+          text: "Вие се абонирахте успешно за нашия бюлетин. Очаквайте новини и актуализации на вашия имейл!",
+          timer: 4000,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Грешка при абонирането!",
+          text: "Моля, опитайте отново по-късно.",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Неуспешно абониране!",
+        text: "Проверете връзката с интернет и опитайте отново.",
+      });
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -13,7 +67,17 @@ export default function Newsletter() {
               Получавайте ценни правни съвети, анализи и актуални новини
               директно във вашата поща.
             </p>
-            <div className="mt-6 flex max-w-md gap-x-4">
+            {loading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-10 pointer-events-none">
+                <div className="w-12 h-12 border-4 border-gray-400 border-t-[#95161C] rounded-full animate-spin"></div>
+              </div>
+            )}
+            <form
+              onSubmit={handleSubmit}
+              className={`mt-6 flex max-w-md gap-x-4 ${
+                loading ? "opacity-50 pointer-events-none" : ""
+              }`}
+            >
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
@@ -22,17 +86,19 @@ export default function Newsletter() {
                 name="email"
                 type="email"
                 required
-                placeholder="Enter your email"
+                placeholder="Въведете вашия имейл"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
               />
               <button
                 type="submit"
                 className="flex-none rounded-md bg-[#95161C] hover:bg-gray-300 cursor-pointer hover:text-[#000000] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Subscribe
+                Абонирай се
               </button>
-            </div>
+            </form>
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
             <div className="flex flex-col items-start">
