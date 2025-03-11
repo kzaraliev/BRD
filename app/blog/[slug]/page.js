@@ -71,7 +71,7 @@ export default async function PostPage({ params }) {
             </div>
           </div>
         </div>
-        <div className="bg-white py-12 sm:py-12">
+        <div className="bg-white py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <article className="mx-auto max-w-8xl w-full">
               {ogImage && (

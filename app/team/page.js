@@ -12,7 +12,7 @@ export default async function Team() {
   return (
     <>
       <div className="bg-white">
-        <div className="mx-auto max-w-10/10 py-0 sm:px-6 sm:py-0 lg:px-0">
+        <div className="mx-auto max-w-10/10 py-0 sm:py-0 lg:px-0">
           <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-12 text-center shadow-2xl sm:px-12">
             <div className="mx-auto max-w-2xl text-center">
               <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
@@ -46,9 +46,9 @@ export default async function Team() {
           </div>
         </div>
       </div>
-      <div className="bg-white py-24 md:py-32">
+      <div className="bg-white py-24">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-20 px-6 lg:px-8 xl:grid-cols-5">
-          <div className="max-w-2xl xl:col-span-2">
+          <div className="w-full xl:max-w-2xl xl:col-span-2 order-last xl:order-first">
             <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
               За екипа
             </h2>

@@ -69,7 +69,7 @@ export default async function ServicePage({ params }) {
             </div>
           </div>
         </div>
-        <div className="bg-white py-12 sm:py-12">
+        {/* <div className="bg-white py-12 sm:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <article className="mx-auto max-w-8xl w-full">
               {ogImage && (
@@ -92,6 +92,46 @@ export default async function ServicePage({ params }) {
                 }}
               />
             </article>
+          </div>
+        </div> */}
+
+        <div className="bg-white py-12 sm:py-12">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <article className="mx-auto max-w-8xl w-full grid md:grid-cols-2 gap-8">
+              {ogImage && (
+                <img
+                  src={ogImage}
+                  alt={meta.og_title}
+                  className="w-full h-auto rounded-xl shadow-lg"
+                />
+              )}
+              <div className="flex flex-col">
+                <time
+                  dateTime={new Date(service[0].date).toISOString()}
+                  className="block text-sm text-gray-500"
+                >
+                  {new Date(service[0].date).toLocaleDateString()}
+                </time>
+                <h1 className="text-3xl font-bold text-gray-900 mt-2">
+                  {meta.og_title}
+                </h1>
+                <div
+                  className="mt-4 prose prose-lg text-gray-600"
+                  dangerouslySetInnerHTML={{
+                    __html: service[0].content.rendered,
+                  }}
+                />
+              </div>
+            </article>
+
+            {/* Останалата част от текста на 100% ширина */}
+            <div className="mt-12 prose prose-lg text-gray-600 w-full">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: service[0].content.rendered,
+                }}
+              />
+            </div>
           </div>
         </div>
       </>

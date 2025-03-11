@@ -63,10 +63,10 @@ export default async function Blog({ searchParams }) {
           </div>
         </div>
       </div>
-      <div className="bg-white py-12 sm:py-12">
+      <div className="bg-white py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {posts.length > 0 ? (
-            <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
               {posts.map((post) => (
                 <Link href={`/blog/${post.slug}`} key={post.id} prefetch={true}>
                   <article className="flex flex-col items-start justify-between">
