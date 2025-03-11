@@ -14,6 +14,7 @@ export default function useSubscribe() {
         title: "Грешка при абонирането!",
         text: "Моля, въведете валиден имейл адрес.",
       });
+      setLoading(false);
       return;
     }
 
@@ -46,7 +47,6 @@ export default function useSubscribe() {
         text: "Проверете връзката с интернет и опитайте отново.",
       });
     }
-
     setLoading(false);
   };
 

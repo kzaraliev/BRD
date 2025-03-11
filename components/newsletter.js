@@ -2,57 +2,16 @@
 import { useState } from "react";
 
 import { CalendarDaysIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
-import Swal from "sweetalert2";
+import useSubscribe from "../hooks/useSubscribe";
+
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { subscribe, loading } = useSubscribe();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    if (!email) {
-      Swal.fire({
-        icon: "error",
-        title: "Грешка при абонирането!",
-        text: "Моля, опитайте отново по-късно.",
-      });
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      if (res.ok) {
-        setEmail("");
-        Swal.fire({
-          icon: "success",
-          title: "Успешен абонамент!",
-          text: "Вие се абонирахте успешно за нашия бюлетин. Очаквайте новини и актуализации на вашия имейл!",
-          timer: 4000,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Грешка при абонирането!",
-          text: "Моля, опитайте отново по-късно.",
-        });
-      }
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Неуспешно абониране!",
-        text: "Проверете връзката с интернет и опитайте отново.",
-      });
-    }
-
-    setLoading(false);
+    await subscribe(email, () => setEmail(""));
   };
 
   return (
