@@ -43,7 +43,7 @@ export default async function ServicePage({ params }) {
       <>
         <div className="bg-white">
           <div className="mx-auto max-w-10/10 py-0 sm:px-6 sm:py-0 lg:px-0">
-            <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-12 text-center shadow-2xl sm:px-12">
+            <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-23 text-center shadow-2xl sm:px-23">
               <h1 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
                 {service[0].title.rendered}
               </h1>

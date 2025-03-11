@@ -52,7 +52,7 @@ export default async function Services() {
         <div className="bg-white py-12 sm:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto w-full">
-              <div className="flex flex-col mt-16 space-y-20 lg:mt-20 lg:space-y-20">
+              <div className="flex flex-col mt-8 space-y-20 lg:mt-8 lg:space-y-20">
                 {services.map((service) => (
                   <Link
                     href={`/services/${service.slug}`}
