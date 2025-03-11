@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Pacifico } from "next/font/google";
+import useSubscribe from "../hooks/useSubscribe";
 
 const pacifico = Pacifico({
   subsets: ["latin", "cyrillic"],
@@ -101,6 +102,13 @@ const navigation = {
 
 export default function Footer() {
   const [year, setYear] = useState(new Date().getFullYear());
+  const [email, setEmail] = useState("");
+  const { subscribe, loading } = useSubscribe();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await subscribe(email, () => setEmail(""));
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -108,7 +116,7 @@ export default function Footer() {
       if (currentYear !== year) {
         setYear(currentYear);
       }
-    }, 1000 * 60 * 60); // Проверява на всеки 1 час
+    }, 1000 * 60 * 60);
 
     return () => clearInterval(interval);
   }, [year]);
@@ -246,17 +254,29 @@ export default function Footer() {
               директно във вашата поща.
             </p>
           </div>
-          <form className="mt-6 sm:flex sm:max-w-md lg:mt-0">
+          {loading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 z-10 pointer-events-none">
+              <div className="w-12 h-12 border-4 border-gray-400 border-t-[#95161C] rounded-full animate-spin"></div>
+            </div>
+          )}
+          <form
+            onSubmit={handleSubmit}
+            className={`mt-6 sm:flex sm:max-w-md lg:mt-0 ${
+              loading ? "opacity-50 pointer-events-none" : ""
+            }`}
+          >
             <label htmlFor="email-address" className="sr-only">
               Email address
             </label>
             <input
               id="email-address"
               name="email-address"
-              type="email"
-              required
+              //type="email"
+              // required
               placeholder="Въведете Вашия имейл"
               autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full min-w-0 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:w-56 sm:text-sm/6"
             />
             <div className="mt-4 sm:mt-0 sm:ml-4 sm:shrink-0">
