@@ -69,32 +69,6 @@ export default async function ServicePage({ params }) {
             </div>
           </div>
         </div>
-        {/* <div className="bg-white py-12 sm:py-12">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <article className="mx-auto max-w-8xl w-full">
-              {ogImage && (
-                <img
-                  src={ogImage}
-                  alt={meta.og_title}
-                  className="w-full h-auto mb-8 rounded-xl shadow-lg"
-                />
-              )}
-              <time
-                dateTime={new Date(service[0].date).toISOString()}
-                className="block mt-2 text-sm text-gray-500"
-              >
-                {new Date(service[0].date).toLocaleDateString()}
-              </time>
-              <div
-                className="mt-8 prose prose-lg text-gray-600 flex flex-col max-w-full"
-                dangerouslySetInnerHTML={{
-                  __html: service[0].content.rendered,
-                }}
-              />
-            </article>
-          </div>
-        </div> */}
-
         <div className="bg-white py-12 sm:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <article className="mx-auto max-w-8xl w-full grid md:grid-cols-2 gap-8">
