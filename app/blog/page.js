@@ -35,7 +35,7 @@ export default async function Blog({ searchParams }) {
               <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
                 От нашия блог
               </h1>
-              <p className="mt-2 mt-6 text-lg/8 text-white">
+              <p className="mt-6 text-lg/8 text-white">
                 Актуални правни анализи, експертни мнения и ценни съвети –
                 всичко, което трябва да знаете, за да сте информирани и
                 защитени.
