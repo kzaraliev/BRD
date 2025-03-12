@@ -47,6 +47,7 @@ export default async function MemberDetails({ params }) {
           <Image
             width={250}
             height={375}
+            priority
             alt={member.name}
             src={member.profilepircture}
             className="rounded-2xl object-cover"
