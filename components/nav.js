@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useRef } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -20,11 +20,17 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import Image from "next/image";
 import { getServicesNav } from "../services/services";
+import { searchContent } from "../services/search";
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const searchRef = useRef(null);
   const [navigation, setNavigation] = useState({
     categories: [
       {
@@ -91,6 +97,39 @@ export default function Navigation() {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery.length < 3) {
+      setSearchResults([]);
+      return;
+    }
+
+    console.log(searchQuery);
+
+    setIsSearching(true);
+    setShowResults(true);
+
+    const delayDebounceFn = setTimeout(async () => {
+      const results = await searchContent(searchQuery);
+      setSearchResults(results);
+      setIsSearching(false);
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowResults(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   return (
@@ -341,6 +380,60 @@ export default function Navigation() {
                   ))}
                 </div>
               </PopoverGroup>
+              <div
+                ref={searchRef}
+                className="relative w-44 sm:w-48 lg:w-auto ml-auto"
+              >
+                <input
+                  type="text"
+                  placeholder="Търсене..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setShowResults(true);
+                  }}
+                  onFocus={() => {
+                    if (searchQuery.length >= 3) {
+                      setShowResults(true);
+                    }
+                  }}
+                  className="block w-full lg:w-72 px-3 py-1 text-sm sm:text-base lg:text-lg text-gray-900 placeholder:text-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#95161C]"
+                />
+                {showResults && (
+                  <div className="absolute right-0 w-44 sm:w-48 lg:w-72 mt-2 bg-white shadow-lg rounded-md max-h-48 sm:max-h-56 lg:max-h-60 overflow-y-auto border border-gray-200">
+                    {isSearching ? (
+                      <div className="p-2 text-gray-500 text-sm text-center">
+                        Зареждане...
+                      </div>
+                    ) : searchResults.length > 0 ? (
+                      <ul className="divide-y divide-gray-200">
+                        {searchResults.map((result) => (
+                          <li
+                            key={result.id}
+                            className="p-1 sm:p-2 hover:bg-gray-100"
+                            onClick={() => {
+                              setSearchQuery("");
+                              setSearchResults([]);
+                              setShowResults(false);
+                            }}
+                          >
+                            <Link
+                              href={`/${result.type}/${result.slug}`}
+                              className="block w-full h-full p-1 sm:p-2 text-gray-900 hover:text-[#95161C]"
+                            >
+                              {result.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="p-2 text-gray-500 text-sm text-center">
+                        Няма намерени резултати
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </nav>
