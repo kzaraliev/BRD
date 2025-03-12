@@ -5,6 +5,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { getContactInfo } from "../../services/contacts";
 import ContactForm from "../../components/contactForm"; // Вкарваме клиентската форма
+import Link from "next/link";
 
 export async function generateMetadata() {
   return {
@@ -73,12 +74,12 @@ export default async function ContactPage() {
                       <PhoneIcon className="h-7 w-6 text-gray-400" />
                     </dt>
                     <dd>
-                      <a
+                      <Link
                         href={`tel:${contactInfo.phone_number}`}
                         className="hover:text-gray-900"
                       >
                         {contactInfo.phone_number}
-                      </a>
+                      </Link>
                     </dd>
                   </div>
                   <div className="flex gap-x-4">
@@ -86,12 +87,12 @@ export default async function ContactPage() {
                       <EnvelopeIcon className="h-7 w-6 text-gray-400" />
                     </dt>
                     <dd>
-                      <a
+                      <Link
                         href={`mailto:${contactInfo.email}`}
                         className="hover:text-gray-900"
                       >
                         {contactInfo.email}
-                      </a>
+                      </Link>
                     </dd>
                   </div>
                 </>

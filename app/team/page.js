@@ -18,7 +18,7 @@ export default async function Team() {
               <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
                 Нашият екип
               </h1>
-              <p className="mt-2 mt-6 text-lg/8 text-white">
+              <p className="mt-6  text-lg/8 text-white">
                 Нашиите адвокати има богат опит в консултирането на медии,
                 телекомуникации, маркетинг, реклама, съдържание и нови
                 технологии.
