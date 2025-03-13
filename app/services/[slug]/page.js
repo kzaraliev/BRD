@@ -86,7 +86,7 @@ export default async function ServicePage({ params }) {
                 {new Date(service[0].date).toLocaleDateString()}
               </time>
               <div
-                className="mt-8 prose prose-lg text-gray-600 flex flex-col max-w-full"
+                className="wordpress-content"
                 dangerouslySetInnerHTML={{
                   __html: service[0].content.rendered,
                 }}
