@@ -72,7 +72,7 @@ export default function Hero() {
             src="/lawyer.webp"
             className="object-cover lg:aspect-auto lg:size-full"
           />
-        </д>
+        </div>
       </div>
     </div>
   );
