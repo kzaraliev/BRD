@@ -389,22 +389,6 @@ export default function Navigation() {
                 ref={searchRef}
                 className="relative w-44 sm:w-48 lg:w-auto ml-auto"
               >
-                {/* <input
-                  type="text"
-                  placeholder="Търсене..."
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setShowResults(true);
-                  }}
-                  onFocus={() => {
-                    if (searchQuery.length >= 3) {
-                      setShowResults(true);
-                    }
-                  }}
-                  className="block w-full lg:w-72 px-3 py-1 text-sm sm:text-base lg:text-lg text-gray-900 placeholder:text-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#95161C]"
-                /> */}
-                {/* TEST */}
                 <div className="relative w-full lg:w-72">
                   <input
                     type="text"
@@ -423,7 +407,6 @@ export default function Navigation() {
                   />
                   <MagnifyingGlassIcon className="absolute right-2 top-1/2 h-5 w-5 text-gray-500 -translate-y-1/2" />
                 </div>
-                {/* END TEST */}
                 {showResults && (
                   <div className="absolute right-0 w-44 sm:w-48 lg:w-72 mt-2 bg-white shadow-lg rounded-md max-h-48 sm:max-h-56 lg:max-h-60 overflow-y-auto border border-gray-200">
                     {isSearching ? (
