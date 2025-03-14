@@ -1,6 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Блог - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
+  description:
+    "Открийте актуални правни анализи, експертни съвети и новини в блога на Адвокатско дружество „Бурков, Радев, Дюлгерска“. Следете последните тенденции в правото, бизнеса и технологиите.",
+};
+
 export default async function Blog({ searchParams }) {
   const page = (await searchParams).page;
   const currentPage = parseInt(page) || 1;

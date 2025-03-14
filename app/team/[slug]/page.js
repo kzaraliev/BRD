@@ -2,6 +2,20 @@ import Link from "next/link";
 import { getMemberInfo } from "../../../services/members";
 import Image from "next/image";
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const member = await getMemberInfo(slug);
+
+  if (!member || member.length === 0) {
+    throw new Error("Member not found");
+  }
+
+  return {
+    title: member.name,
+    //description: member.description,
+  };
+}
+
 export default async function MemberDetails({ params }) {
   const { slug } = await params;
 

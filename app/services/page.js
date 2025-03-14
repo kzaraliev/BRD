@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { getServices } from "../../services/services";
 
+export const metadata = {
+  title: "Услуги - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
+  description:
+    "Разгледайте правните услуги, които предлага Адвокатско дружество „Бурков, Радев, Дюлгерска“. Специализираме в търговско, гражданско, наказателно и административно право, като осигуряваме експертни решения и индивидуален подход към всеки клиент.",
+};
+
 export default async function Services() {
   try {
     const services = await getServices();
@@ -92,7 +98,7 @@ export default async function Services() {
                             {service.content.rendered
                               ? service.content.rendered
                                   .replace(/<[^>]+>/g, "")
-                                  .substring(0, 200) + "..."
+                                  .substring(0, 450) + "..."
                               : "Описание не е налично"}
                           </p>
                         </div>

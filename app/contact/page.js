@@ -9,9 +9,9 @@ import Link from "next/link";
 
 export async function generateMetadata() {
   return {
-    title: "Contact Us",
+    title: "Контакти - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
     description:
-      "Get in touch with us for inquiries, support, or collaboration opportunities.",
+      "Свържете се с Адвокатско дружество „Бурков, Радев, Дюлгерска“ за правна консултация. Нашият екип е на разположение да отговори на вашите въпроси и да предложи експертни решения. Намерете нашите контакти и адрес тук.",
   };
 }
 
