@@ -60,19 +60,19 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <picture className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+        <div className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <Image
             width={955}
             height={776}
             priority
             fetchPriority="high"
             loading="eager"
-            quality={80} // Reduce quality for faster load
+            quality={80}
             alt="hero-baner"
             src="/lawyer.webp"
             className="object-cover lg:aspect-auto lg:size-full"
           />
-        </picture>
+        </д>
       </div>
     </div>
   );
