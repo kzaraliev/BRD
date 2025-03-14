@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="bg">
       <Head>
-        <link rel="preload" as="image" href="/lawyer.webp" type="image/webp" />
+        {/* <link rel="preload" as="image" href="/lawyer.webp" type="image/webp" /> */}
       </Head>
       <body className={roboto.className}>
         <Navigation />

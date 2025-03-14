@@ -66,6 +66,8 @@ export default function Hero() {
             height={776}
             priority
             fetchPriority="high"
+            loading="eager"
+            quality={80} // Reduce quality for faster load
             alt="hero-baner"
             src="/lawyer.webp"
             className="object-cover lg:aspect-auto lg:size-full"
