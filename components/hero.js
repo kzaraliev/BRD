@@ -65,6 +65,7 @@ export default function Hero() {
             width={955}
             height={776}
             priority
+            fetchPriority="high"
             alt="hero-baner"
             src="/lawyer.webp"
             className="object-cover lg:aspect-auto lg:size-full"
