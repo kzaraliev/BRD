@@ -60,7 +60,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <div className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+        <picture className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <Image
             width={955}
             height={776}
@@ -72,7 +72,7 @@ export default function Hero() {
             src="/lawyer.webp"
             className="object-cover lg:aspect-auto lg:size-full"
           />
-        </div>
+        </picture>
       </div>
     </div>
   );
