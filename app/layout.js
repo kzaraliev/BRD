@@ -1,5 +1,5 @@
 import Navigation from "../components/nav";
-import CookieConsentBanner from "../compone nts/cookieConsentBanner";
+import CookieConsentBanner from "../components/cookieConsentBanner";
 import Footer from "../components/footer";
 
 import "../styles/globals.css";
