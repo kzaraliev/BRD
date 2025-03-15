@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import Navigation from "../components/nav";
 import CookieConsentBanner from "../components/cookieConsentBanner";
 import Footer from "../components/footer";
@@ -12,11 +13,24 @@ const roboto = Roboto({
   display: "swap",
 });
 
-export const metadata = {
-  title: "Адвокатско дружество „Бурков, Радев, Дюлгерска“",
-  description:
-    "Вашият доверен правен партньор. Предлагаме висококачествени правни услуги в областта на търговското, гражданското, наказателното и административното право.",
-};
+
+export async function generateMetadata() {
+  const host = (await headers()).get("host"); // Get the current domain
+  const protocol = host?.includes("localhost") ? "http" : "https"; // Adjust for local dev
+
+  return {
+    metadataBase: new URL(`${protocol}://${host}`),
+    title: "Адвокатско дружество „Бурков, Радев, Дюлгерска“",
+    description:
+      "Вашият доверен правен партньор. Предлагаме висококачествени правни услуги в областта на търговското, гражданското, наказателното и административното право.",
+    openGraph: {
+      title: "Адвокатско дружество „Бурков, Радев, Дюлгерска“",
+      description:
+        "Вашият доверен правен партньор. Предлагаме висококачествени правни услуги в областта на търговското, гражданското, наказателното и административното право.",
+      images: "/lawyer.webp",
+    },
+  };
+}
 
 export default function RootLayout({ children }) {
   return (
