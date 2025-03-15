@@ -1,6 +1,6 @@
-import Head from "next/head";
-import Footer from "../components/footer";
 import Navigation from "../components/nav";
+import CookieConsentBanner from "../compone nts/cookieConsentBanner";
+import Footer from "../components/footer";
 
 import "../styles/globals.css";
 import { Roboto } from "next/font/google";
@@ -14,18 +14,17 @@ const roboto = Roboto({
 
 export const metadata = {
   title: "Адвокатско дружество „Бурков, Радев, Дюлгерска“",
-  description: "Вашият доверен правен партньор. Предлагаме висококачествени правни услуги в областта на търговското, гражданското, наказателното и административното право.",
+  description:
+    "Вашият доверен правен партньор. Предлагаме висококачествени правни услуги в областта на търговското, гражданското, наказателното и административното право.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="bg">
-      <Head>
-        {/* <link rel="preload" as="image" href="/lawyer.webp" type="image/webp" /> */}
-      </Head>
       <body className={roboto.className}>
         <Navigation />
         {children}
+        <CookieConsentBanner />
         <Footer />
       </body>
     </html>
