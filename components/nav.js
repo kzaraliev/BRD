@@ -166,6 +166,15 @@ export default function Navigation() {
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon aria-hidden="true" className="size-6" />
               </button>
+              <div className="ml-4">
+                <Image
+                  src="/brd_menu_logo.png"
+                  alt="BRD Law Logo"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto"
+                />
+              </div>
             </div>
             {/* Links */}
             <TabGroup className="mt-2">
@@ -267,8 +276,8 @@ export default function Navigation() {
         <nav aria-label="Top" className="mx-auto w-full px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
             <div
-              className={`flex items-center justify-between transition-all duration-300 ease-in-out ${
-                isScrolled ? "h-16" : "h-28"
+              className={`flex items-center justify-between ${
+                isScrolled ? "h-16 lg:h-16" : "h-16 lg:h-28"
               }`}
             >
               {/* Mobile menu button - запазваме мобилната версия непроменена */}
@@ -283,30 +292,29 @@ export default function Navigation() {
               </button>
 
               {/* Секция 1: Лого */}
-              <div
-                className={`w-1/4 lg:w-1/5 flex items-center justify-start transition-all duration-300 ease-in-out ${
-                  isScrolled ? "lg:w-1/6" : "lg:w-1/5"
-                }`}
-              >
+              <div className="w-1/4 lg:w-1/5 flex items-center justify-start">
                 <Link href="/" className="block">
                   <span className="sr-only">BRD</span>
-                  {isScrolled ? (
-                    <Image
-                      width={40}
-                      height={40}
-                      alt=""
-                      src="/brd_menu_logo.png"
-                      className="h-10 w-auto transition-all duration-300 ease-in-out"
-                    />
-                  ) : (
-                    <Image
-                      width={160}
-                      height={180}
-                      alt=""
-                      src="/brd-logo.svg"
-                      className="h-28 w-full transition-all duration-300 ease-in-out"
-                    />
-                  )}
+                  {/* Мобилно лого - винаги малко */}
+                  <Image
+                    width={40}
+                    height={40}
+                    alt=""
+                    src="/brd_menu_logo.png"
+                    className="h-10 w-auto lg:hidden"
+                  />
+                  {/* Десктоп лого - променя се при скрол */}
+                  <Image
+                    width={160}
+                    height={180}
+                    alt=""
+                    src={isScrolled ? "/brd_menu_logo.png" : "/brd-logo.svg"}
+                    className="hidden lg:block transition-all duration-300 ease-in-out"
+                    style={{
+                      height: isScrolled ? "40px" : "112px",
+                      width: "auto",
+                    }}
+                  />
                 </Link>
               </div>
 
@@ -318,7 +326,7 @@ export default function Navigation() {
                       <Link
                         key={page.name}
                         href={page.href}
-                        className={`flex items-center font-medium text-gray-700 hover:text-gray-800 transition-all duration-300 ease-in-out ${
+                        className={`flex items-center font-medium text-gray-700 hover:text-gray-800 ${
                           isScrolled ? "text-base" : "text-lg"
                         }`}
                         prefetch={true}
@@ -426,9 +434,7 @@ export default function Navigation() {
               {/* Секция 3: Търсачка */}
               <div
                 ref={searchRef}
-                className={`flex justify-end transition-all duration-300 ease-in-out ${
-                  isScrolled ? "w-40 sm:w-44 lg:w-1/6" : "w-44 sm:w-48 lg:w-1/5"
-                }`}
+                className="flex justify-end w-40 sm:w-44 lg:w-1/6"
               >
                 <div className="relative w-full lg:w-72">
                   <input
@@ -444,17 +450,9 @@ export default function Navigation() {
                         setShowResults(true);
                       }
                     }}
-                    className={`block w-full px-3 pr-10 text-gray-900 placeholder:text-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#95161C] transition-all duration-300 ease-in-out ${
-                      isScrolled
-                        ? "py-0.5 text-sm sm:text-sm lg:text-base"
-                        : "py-1 text-sm sm:text-base lg:text-lg"
-                    }`}
+                    className="block w-full px-3 pr-10 text-gray-900 placeholder:text-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#95161C] py-1 text-sm sm:text-base lg:text-base"
                   />
-                  <MagnifyingGlassIcon
-                    className={`absolute right-2 top-1/2 text-gray-500 -translate-y-1/2 transition-all duration-300 ease-in-out ${
-                      isScrolled ? "h-4 w-4" : "h-5 w-5"
-                    }`}
-                  />
+                  <MagnifyingGlassIcon className="absolute right-2 top-1/2 text-gray-500 -translate-y-1/2 h-5 w-5" />
                 </div>
                 {showResults && (
                   <div className="absolute right-0 w-44 sm:w-48 lg:w-72 mt-2 bg-white shadow-lg rounded-md max-h-48 sm:max-h-56 lg:max-h-60 overflow-y-auto border border-gray-200">
