@@ -112,7 +112,7 @@ export default function Footer() {
           <div>
             <img
               alt="Адвокатско дружество Бурков, Радев, Дюлгерска"
-              src="/brd-logo.svg"
+              src="/brd-logo-1.svg"
               className="w-full"
             />
             {/* <div className="mt-8 text-lg">

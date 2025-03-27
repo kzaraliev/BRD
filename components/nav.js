@@ -308,7 +308,7 @@ export default function Navigation() {
                     width={160}
                     height={180}
                     alt=""
-                    src={isScrolled ? "/brd_menu_logo.png" : "/brd-logo.svg"}
+                    src={isScrolled ? "/brd_menu_logo.png" : "/brd-logo-1.svg"}
                     className="hidden lg:block transition-all duration-300 ease-in-out"
                     style={{
                       height: isScrolled ? "40px" : "112px",
@@ -370,45 +370,31 @@ export default function Navigation() {
                                   )}
                                   {!loading && (
                                     <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-6">
-                                      <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                        {category.featured.map((item) => (
-                                          <div
-                                            key={item.name}
-                                            className="group relative text-base sm:text-sm"
-                                          >
-                                            <Image
-                                              width={280}
-                                              height={280}
-                                              alt={item.imageAlt}
-                                              src={item.imageSrc}
-                                              className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
-                                            />
-                                            <Link
-                                              href={item.href}
-                                              className="mt-6 block font-medium text-gray-900"
-                                              prefetch={true}
-                                              onClick={close} // Close popover when clicked
-                                            >
-                                              <span
-                                                aria-hidden="true"
-                                                className="absolute inset-0 z-10"
-                                              />
-                                              {item.name}
-                                            </Link>
-                                          </div>
-                                        ))}
+                                      <div className="col-start-2">
+                                        <div className="group relative text-base sm:text-sm">
+                                          <Image
+                                            width={560}
+                                            height={560}
+                                            alt="BRD Law Services"
+                                            src="/incentives-hero-image.jpg"
+                                            className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
+                                          />
+                                        </div>
                                       </div>
                                       <ul className="text-lg divide-y divide-gray-100 start-1 row-start-1 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
-                                        {category.services.map((service) => (
+                                        {[
+                                          ...category.featured,
+                                          ...category.services,
+                                        ].map((service) => (
                                           <li
-                                            key={service.id}
+                                            key={service.id || service.name}
                                             className="flex gap-x-4 py-1 items-center"
                                           >
                                             <Link
                                               className="min-w-0 w-full flex"
                                               href={service.href}
                                               prefetch={true}
-                                              onClick={close} // Close popover when clicked
+                                              onClick={close}
                                             >
                                               <p className="text-lg font-semibold text-gray-900 transition-colors duration-300 hover:text-[#95161C]">
                                                 {service.name}
