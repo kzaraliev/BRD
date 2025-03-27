@@ -30,6 +30,7 @@ export default function Navigation() {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const searchRef = useRef(null);
   const [navigation, setNavigation] = useState({
     categories: [
@@ -129,6 +130,22 @@ export default function Navigation() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      if (scrollTop > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -255,7 +272,11 @@ export default function Navigation() {
       <header className="relative bg-white">
         <nav aria-label="Top" className="mx-auto w-full px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
-            <div className="flex h-28 items-center justify-between">
+            <div
+              className={`flex items-center justify-between transition-all duration-300 ease-in-out ${
+                isScrolled ? "h-16" : "h-28"
+              }`}
+            >
               {/* Mobile menu button - запазваме мобилната версия непроменена */}
               <button
                 type="button"
@@ -268,16 +289,30 @@ export default function Navigation() {
               </button>
 
               {/* Секция 1: Лого */}
-              <div className="w-1/4 lg:w-1/5 flex items-center justify-start">
+              <div
+                className={`w-1/4 lg:w-1/5 flex items-center justify-start transition-all duration-300 ease-in-out ${
+                  isScrolled ? "lg:w-1/6" : "lg:w-1/5"
+                }`}
+              >
                 <Link href="/" className="block">
                   <span className="sr-only">BRD</span>
-                  <Image
-                    width={160}
-                    height={180}
-                    alt=""
-                    src="/brd-logo.svg"
-                    className="h-28 w-full"
-                  />
+                  {isScrolled ? (
+                    <Image
+                      width={40}
+                      height={40}
+                      alt=""
+                      src="/brd_menu_logo.png"
+                      className="h-10 w-auto transition-all duration-300 ease-in-out"
+                    />
+                  ) : (
+                    <Image
+                      width={160}
+                      height={180}
+                      alt=""
+                      src="/brd-logo.svg"
+                      className="h-28 w-full transition-all duration-300 ease-in-out"
+                    />
+                  )}
                 </Link>
               </div>
 
@@ -289,7 +324,9 @@ export default function Navigation() {
                       <Link
                         key={page.name}
                         href={page.href}
-                        className="flex items-center text-lg font-medium text-gray-700 hover:text-gray-800"
+                        className={`flex items-center font-medium text-gray-700 hover:text-gray-800 transition-all duration-300 ease-in-out ${
+                          isScrolled ? "text-base" : "text-lg"
+                        }`}
                         prefetch={true}
                       >
                         {page.name}
@@ -300,7 +337,11 @@ export default function Navigation() {
                         {({ open, close }) => (
                           <>
                             <div className="relative flex">
-                              <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-lg font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-[#95161C] data-open:text-[#95161C] cursor-pointer focus-visible:outline-none">
+                              <PopoverButton
+                                className={`relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-[#95161C] data-open:text-[#95161C] cursor-pointer focus-visible:outline-none transition-all ${
+                                  isScrolled ? "text-base" : "text-lg"
+                                }`}
+                              >
                                 {category.name}
                                 <ChevronDownIcon
                                   className={`ml-2 h-5 w-5 text-gray-500 transition-transform duration-200 ease-in-out ${
@@ -391,7 +432,9 @@ export default function Navigation() {
               {/* Секция 3: Търсачка */}
               <div
                 ref={searchRef}
-                className="w-44 sm:w-48 lg:w-1/5 flex justify-end"
+                className={`flex justify-end transition-all duration-300 ease-in-out ${
+                  isScrolled ? "w-40 sm:w-44 lg:w-1/6" : "w-44 sm:w-48 lg:w-1/5"
+                }`}
               >
                 <div className="relative w-full lg:w-72">
                   <input
@@ -407,9 +450,17 @@ export default function Navigation() {
                         setShowResults(true);
                       }
                     }}
-                    className="block w-full px-3 py-1 pr-10 text-sm sm:text-base lg:text-lg text-gray-900 placeholder:text-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#95161C]"
+                    className={`block w-full px-3 pr-10 text-gray-900 placeholder:text-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#95161C] transition-all duration-300 ease-in-out ${
+                      isScrolled
+                        ? "py-0.5 text-sm sm:text-sm lg:text-base"
+                        : "py-1 text-sm sm:text-base lg:text-lg"
+                    }`}
                   />
-                  <MagnifyingGlassIcon className="absolute right-2 top-1/2 h-5 w-5 text-gray-500 -translate-y-1/2" />
+                  <MagnifyingGlassIcon
+                    className={`absolute right-2 top-1/2 text-gray-500 -translate-y-1/2 transition-all duration-300 ease-in-out ${
+                      isScrolled ? "h-4 w-4" : "h-5 w-5"
+                    }`}
+                  />
                 </div>
                 {showResults && (
                   <div className="absolute right-0 w-44 sm:w-48 lg:w-72 mt-2 bg-white shadow-lg rounded-md max-h-48 sm:max-h-56 lg:max-h-60 overflow-y-auto border border-gray-200">
