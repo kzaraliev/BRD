@@ -49,7 +49,7 @@ export default function Hero() {
                     href="/services"
                     className="rounded-md bg-[#95161C] hover:bg-gray-300 hover:text-[#000000] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Услуги
+                    Сфери на дейност
                   </Link>
                   <Link
                     href="/contact"

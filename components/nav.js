@@ -36,7 +36,7 @@ export default function Navigation() {
     categories: [
       {
         id: "categories",
-        name: "Услуги",
+        name: "Сфери на дейност",
         featured: [],
         services: [],
       },
@@ -63,18 +63,12 @@ export default function Navigation() {
         const featured = services.slice(0, 2);
         const remainingServices = services.slice(2);
 
-        const categoryName =
-          remainingServices[0]?.yoast_head_json?.schema?.["@graph"]
-            ?.find((item) => item["@type"] === "BreadcrumbList")
-            ?.itemListElement?.find((element) => element.position === 2)
-            ?.name || "Услуги";
-
         setNavigation((prev) => ({
           ...prev,
           categories: [
             {
               id: "categories",
-              name: categoryName,
+              name: "Сфери на дейност",
               featured: featured.map((service) => ({
                 name: service.title.rendered,
                 href: `/services/${service.slug}`,
