@@ -59,37 +59,19 @@ export default async function Team() {
               За екипа
             </h2>
             <p className="mt-6 text-lg/8 text-gray-600">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-              commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+              Екипът на Адвокатско дружество „Бурков, Радев, Дюлгерска“ съчетава
+              по уникален начин опита, креативността, постоянството и жаждата за
+              знания.
             </p>
             <p className="mt-6 text-lg/8 text-gray-600">
-              Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
-              sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
-              vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-              imperdiet a, venenatis vitae, justo.
+              Предоставяме всеобхватно правно обслужване на физически и
+              юридически лица в следните области на правото: вещно право,
+              семейно и наследствено право, облигационно право, трудово право,
+              търговско право, право на интелектуална собственост, реклама и
+              медии, граждански и административен процес.
             </p>
             <p className="mt-6 text-lg/8 text-gray-600">
-              Nullam dictum felis eu pede mollis pretium. Integer tincidunt.
-              Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate
-              eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
-              eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis,
-              feugiat a, tellus.
-            </p>
-            <p className="mt-6 text-lg/8 text-gray-600">
-              Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.
-              Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
-              ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.
-            </p>
-            <p className="mt-6 text-lg/8 text-gray-600">
-              Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper
-              libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc,
-              blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec
-              odio et ante tincidunt tempus. Donec vitae sapien ut libero
-              venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget
-              eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet
-              nibh. Donec sodales sagittis magna. Sed consequat, leo eget
-              bibendum sodales, augue velit cursus nunc,
+              Работни езици: български, английски, сръбски, руски, немски.
             </p>
           </div>
           <ul role="list" className="divide-y divide-gray-200 xl:col-span-3">

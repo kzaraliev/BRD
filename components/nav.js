@@ -253,12 +253,10 @@ export default function Navigation() {
         </div>
       </Dialog>
       <header className="relative bg-white">
-        <nav
-          aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        >
+        <nav aria-label="Top" className="mx-auto w-full px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
-            <div className="flex h-16 items-center">
+            <div className="flex h-28 items-center justify-between">
+              {/* Mobile menu button - запазваме мобилната версия непроменена */}
               <button
                 type="button"
                 onClick={() => setOpen(true)}
@@ -268,126 +266,132 @@ export default function Navigation() {
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon aria-hidden="true" className="size-6" />
               </button>
-              {/* Logo */}
-              <div className="ml-4 flex lg:ml-0">
-                <Link href="/">
+
+              {/* Секция 1: Лого */}
+              <div className="w-1/4 lg:w-1/5 flex items-center justify-start">
+                <Link href="/" className="block">
                   <span className="sr-only">BRD</span>
                   <Image
-                    width={37}
-                    height={56}
+                    width={160}
+                    height={180}
                     alt=""
-                    src="/адвокатско-дружество-brd-logo.svg"
-                    className="h-14 w-auto"
+                    src="/brd-logo.svg"
+                    className="h-28 w-full"
                   />
                 </Link>
               </div>
-              {/* Flyout menus */}
-              <PopoverGroup className="hidden lg:ml-8 lg:block lg:self-stretch">
-                <div className="flex h-full space-x-8">
-                  {navigation.pages.map((page) => (
-                    <Link
-                      key={page.name}
-                      href={page.href}
-                      className="flex items-center text-lg font-medium text-gray-700 hover:text-gray-800"
-                      prefetch={true}
-                    >
-                      {page.name}
-                    </Link>
-                  ))}
-                  {navigation.categories.map((category) => (
-                    <Popover key={category.name} className="flex">
-                      {({ open, close }) => (
-                        <>
-                          <div className="relative flex">
-                            <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-lg font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-[#95161C] data-open:text-[#95161C] cursor-pointer focus-visible:outline-none">
-                              {category.name}
-                              <ChevronDownIcon
-                                className={`ml-2 h-5 w-5 text-gray-500 transition-transform duration-200 ease-in-out ${
-                                  open ? "rotate-180" : "rotate-0"
-                                }`}
-                              />
-                            </PopoverButton>
-                          </div>
-                          <PopoverPanel
-                            transition
-                            className="absolute inset-x-0 top-full text-sm text-gray-500 transition data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
-                          >
-                            <div
-                              aria-hidden="true"
-                              className="absolute inset-0 top-1/2 bg-white shadow-sm"
-                            />
-                            <div className="relative bg-white">
-                              <div className="mx-auto max-w-7xl px-8">
-                                {/* Loader */}
-                                {loading && (
-                                  <div className="flex justify-center py-10">
-                                    <div className="w-12 h-12 border-4 border-gray-500 border-t-[#95161C] rounded-full animate-spin"></div>
-                                  </div>
-                                )}
-                                {!loading && (
-                                  <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-6">
-                                    <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                      {category.featured.map((item) => (
-                                        <div
-                                          key={item.name}
-                                          className="group relative text-base sm:text-sm"
-                                        >
-                                          <Image
-                                            width={280}
-                                            height={280}
-                                            alt={item.imageAlt}
-                                            src={item.imageSrc}
-                                            className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
-                                          />
-                                          <Link
-                                            href={item.href}
-                                            className="mt-6 block font-medium text-gray-900"
-                                            prefetch={true}
-                                            onClick={close} // Close popover when clicked
-                                          >
-                                            <span
-                                              aria-hidden="true"
-                                              className="absolute inset-0 z-10"
-                                            />
-                                            {item.name}
-                                          </Link>
-                                        </div>
-                                      ))}
-                                    </div>
-                                    <ul className="text-lg divide-y divide-gray-100 start-1 row-start-1 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
-                                      {category.services.map((service) => (
-                                        <li
-                                          key={service.id}
-                                          className="flex gap-x-4 py-1 items-center"
-                                        >
-                                          <Link
-                                            className="min-w-0 w-full flex"
-                                            href={service.href}
-                                            prefetch={true}
-                                            onClick={close} // Close popover when clicked
-                                          >
-                                            <p className="text-lg font-semibold text-gray-900 transition-colors duration-300 hover:text-[#95161C]">
-                                              {service.name}
-                                            </p>
-                                          </Link>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                )}
-                              </div>
+
+              {/* Секция 2: Меню - центрирано */}
+              <div className="hidden lg:flex lg:items-center lg:justify-center lg:flex-1">
+                <PopoverGroup className="flex">
+                  <div className="flex space-x-8">
+                    {navigation.pages.map((page) => (
+                      <Link
+                        key={page.name}
+                        href={page.href}
+                        className="flex items-center text-lg font-medium text-gray-700 hover:text-gray-800"
+                        prefetch={true}
+                      >
+                        {page.name}
+                      </Link>
+                    ))}
+                    {navigation.categories.map((category) => (
+                      <Popover key={category.name} className="flex">
+                        {({ open, close }) => (
+                          <>
+                            <div className="relative flex">
+                              <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-lg font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-[#95161C] data-open:text-[#95161C] cursor-pointer focus-visible:outline-none">
+                                {category.name}
+                                <ChevronDownIcon
+                                  className={`ml-2 h-5 w-5 text-gray-500 transition-transform duration-200 ease-in-out ${
+                                    open ? "rotate-180" : "rotate-0"
+                                  }`}
+                                />
+                              </PopoverButton>
                             </div>
-                            )
-                          </PopoverPanel>
-                        </>
-                      )}
-                    </Popover>
-                  ))}
-                </div>
-              </PopoverGroup>
+                            <PopoverPanel
+                              transition
+                              className="absolute inset-x-0 top-full text-sm text-gray-500 transition data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
+                            >
+                              <div
+                                aria-hidden="true"
+                                className="absolute inset-0 top-1/2 bg-white shadow-sm"
+                              />
+                              <div className="relative bg-white">
+                                <div className="mx-auto max-w-7xl px-8">
+                                  {/* Loader */}
+                                  {loading && (
+                                    <div className="flex justify-center py-10">
+                                      <div className="w-12 h-12 border-4 border-gray-500 border-t-[#95161C] rounded-full animate-spin"></div>
+                                    </div>
+                                  )}
+                                  {!loading && (
+                                    <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-6">
+                                      <div className="col-start-2 grid grid-cols-2 gap-x-8">
+                                        {category.featured.map((item) => (
+                                          <div
+                                            key={item.name}
+                                            className="group relative text-base sm:text-sm"
+                                          >
+                                            <Image
+                                              width={280}
+                                              height={280}
+                                              alt={item.imageAlt}
+                                              src={item.imageSrc}
+                                              className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
+                                            />
+                                            <Link
+                                              href={item.href}
+                                              className="mt-6 block font-medium text-gray-900"
+                                              prefetch={true}
+                                              onClick={close} // Close popover when clicked
+                                            >
+                                              <span
+                                                aria-hidden="true"
+                                                className="absolute inset-0 z-10"
+                                              />
+                                              {item.name}
+                                            </Link>
+                                          </div>
+                                        ))}
+                                      </div>
+                                      <ul className="text-lg divide-y divide-gray-100 start-1 row-start-1 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+                                        {category.services.map((service) => (
+                                          <li
+                                            key={service.id}
+                                            className="flex gap-x-4 py-1 items-center"
+                                          >
+                                            <Link
+                                              className="min-w-0 w-full flex"
+                                              href={service.href}
+                                              prefetch={true}
+                                              onClick={close} // Close popover when clicked
+                                            >
+                                              <p className="text-lg font-semibold text-gray-900 transition-colors duration-300 hover:text-[#95161C]">
+                                                {service.name}
+                                              </p>
+                                            </Link>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              )
+                            </PopoverPanel>
+                          </>
+                        )}
+                      </Popover>
+                    ))}
+                  </div>
+                </PopoverGroup>
+              </div>
+
+              {/* Секция 3: Търсачка */}
               <div
                 ref={searchRef}
-                className="relative w-44 sm:w-48 lg:w-auto ml-auto"
+                className="w-44 sm:w-48 lg:w-1/5 flex justify-end"
               >
                 <div className="relative w-full lg:w-72">
                   <input

@@ -73,7 +73,7 @@ export default async function ServicePage({ params }) {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <article className="mx-auto max-w-8xl w-full">
               <div
-                className="wordpress-content"
+                className="wordpress-content prose max-w-none leading-relaxed"
                 dangerouslySetInnerHTML={{
                   __html: service[0].content.rendered,
                 }}

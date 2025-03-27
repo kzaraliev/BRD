@@ -29,18 +29,20 @@ export default function Hero() {
                     </Link>
                   </div>
                 </div>
-                <h1 className="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl font-display">
-                  Адвокатско дружество
-                </h1>
-                <p className="mt-8 text-2xl font-medium font-display">
+                <h1 className="text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl font-display">
                   „Бурков, Радев, Дюлгерска“
+                </h1>
+                <p className="mt-8 text-4xl font-medium font-display">
+                  Адвокатско дружество
                 </p>
                 <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 font-display">
-                  Кантората предлага на своите клиенти всеобхватно правно
-                  обслужване, в това число и по въпроси, свързани с
-                  облигационното, вещното, търговското и трудовото право,
-                  правото на интелектуална собственост, гражданския и
-                  административния процес.
+                  Кантората е основана през 2016 г., обединявайки екип от
+                  професионалисти с дългогодишен опит. Предоставяме на своите
+                  клиенти всеобхватно правно обслужване в следните области на
+                  правото: вещно право, семейно и наследствено право,
+                  облигационно право, трудово право, търговско право, право на
+                  интелектуална собственост, реклама и медии, граждански и
+                  административен процес.
                 </p>
                 <div className="mt-10 flex items-center gap-x-6">
                   <Link

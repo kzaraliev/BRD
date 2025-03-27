@@ -88,7 +88,7 @@ export default async function PostPage({ params }) {
                 {new Date(post[0].date).toLocaleDateString()}
               </time>
               <div
-                className="wordpress-content"
+                className="wordpress-content prose max-w-none leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: post[0].content.rendered }}
               />
             </article>
