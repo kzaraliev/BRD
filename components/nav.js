@@ -197,7 +197,7 @@ export default function Navigation() {
                   {navigation.categories.map((category) => (
                     <Tab
                       key={category.name}
-                      className="flex-1 border-b-2 border-transparent px-1 py-4 text-base font-medium text-left whitespace-nowrap text-gray-900"
+                      className="flex-1 border-b-2 border-transparent px-1 py-4 text-xl font-bold text-center text-gray-900 hover:text-[#95161C] data-headlessui-state-selected:border-[#95161C] data-headlessui-state-selected:text-[#95161C]"
                     >
                       {category.name}
                     </Tab>
@@ -215,55 +215,27 @@ export default function Navigation() {
                   {navigation.categories.map((category) => (
                     <TabPanel
                       key={category.name}
-                      className="space-y-10 px-4 pt-10 pb-8"
+                      className="space-y-6 px-4 pt-6 pb-8"
                     >
-                      <div className="grid grid-cols-2 gap-x-4">
-                        {category.featured.map((item) => (
-                          <div
-                            key={item.name}
-                            className="group relative text-sm"
-                          >
-                            <Image
-                              width={136}
-                              height={136}
-                              alt={item.imageAlt}
-                              src={item.imageSrc}
-                              className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
-                            />
-                            <Link
-                              href={item.href}
-                              className="mt-6 block font-medium text-gray-900"
-                              onClick={() => setOpen(false)}
-                              prefetch={true}
+                      <ul className="flex flex-col space-y-4">
+                        {[...category.featured, ...category.services].map(
+                          (service) => (
+                            <li
+                              key={service.id || service.name}
+                              className="flow-root"
                             >
-                              <span
-                                aria-hidden="true"
-                                className="absolute inset-0 z-10"
-                              />
-                              {item.name}
-                            </Link>
-                          </div>
-                        ))}
-                      </div>
-                      {category.services.map((service) => (
-                        <div key={service.id}>
-                          <ul
-                            role="list"
-                            className="mt-6 flex flex-col space-y-6"
-                          >
-                            <li key={service.name} className="flow-root">
                               <Link
                                 href={service.href}
-                                className="-m-2 block p-2 text-gray-500"
+                                className="-m-2 block p-2 font-medium text-gray-900"
                                 onClick={() => setOpen(false)}
                                 prefetch={true}
                               >
                                 {service.name}
                               </Link>
                             </li>
-                          </ul>
-                        </div>
-                      ))}
+                          )
+                        )}
+                      </ul>
                     </TabPanel>
                   ))}
                 </TabPanels>
