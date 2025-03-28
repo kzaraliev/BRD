@@ -2,10 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { getServices } from "../../services/services";
 
+// Добавяне на ISR ревалидиране на всеки час
+export const revalidate = 3600;
+
 export const metadata = {
-  title: "Услуги - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
+  title: 'Услуги - Адвокатско дружество "Бурков, Радев, Дюлгерска"',
   description:
-    "Разгледайте правните услуги, които предлага Адвокатско дружество „Бурков, Радев, Дюлгерска“. Специализираме в търговско, гражданско, наказателно и административно право, като осигуряваме експертни решения и индивидуален подход към всеки клиент.",
+    'Разгледайте правните услуги, които предлага Адвокатско дружество "Бурков, Радев, Дюлгерска". Специализираме в търговско, гражданско, наказателно и административно право, като осигуряваме експертни решения и индивидуален подход към всеки клиент.',
 };
 
 export default async function Services() {
@@ -59,7 +62,7 @@ export default async function Services() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto w-full">
               <div className="flex flex-col mt-8 space-y-20 lg:mt-8 lg:space-y-20">
-                {services.map((service) => (
+                {services.map((service, index) => (
                   <Link
                     href={`/services/${service.slug}`}
                     className="flex mt-8 mb-8 w-full max-w-full"
@@ -71,12 +74,17 @@ export default async function Services() {
                         <Image
                           width={256}
                           height={256}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          quality={85}
+                          priority={index === 0}
+                          loading={index === 0 ? "eager" : "lazy"}
                           alt={service.title.rendered}
                           src={
                             service.yoast_head_json?.og_image?.[0]?.url ||
                             "https://via.placeholder.com/360x240"
                           }
                           className="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover"
+                          format="webp"
                         />
                         <div className="absolute inset-0 rounded-2xl ring-1 ring-gray-900/10 ring-inset" />
                       </div>

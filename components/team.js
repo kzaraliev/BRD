@@ -26,7 +26,7 @@ export default function Team() {
             Нашият екип
           </h2>
           <p className="mt-6 text-lg/8 text-gray-600 text-center">
-            Екипът на Адвокатско дружество „Бурков, Радев, Дюлгерска“ съчетава
+            Екипът на Адвокатско дружество „Бурков, Радев, Дюлгерска" съчетава
             по уникален начин опита, креативността, постоянството и жаждата за
             знания. Кантората предлага на своите клиенти всеобхватно правно
             обслужване, в това число и по въпроси, свързани с облигационното,
@@ -44,15 +44,20 @@ export default function Team() {
           role="list"
           className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
         >
-          {members.map((member) => (
+          {members.map((member, index) => (
             <li key={member.id} className="flex flex-col items-center">
               <Link href={`/team/${member.slug}`} prefetch={true}>
                 <Image
                   width={250}
                   height={375}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={90}
+                  priority={index < 3} // Приоритетно зареждане на първите 3 члена
+                  loading={index < 3 ? "eager" : "lazy"}
                   alt={member.name}
                   src={member.profilepircture}
                   className="rounded-2xl object-cover"
+                  format="webp"
                 />
                 <h3 className="mt-6 text-lg/8 font-semibold tracking-tight text-gray-900">
                   {member.name}

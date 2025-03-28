@@ -7,6 +7,9 @@ import Newsletter from "../components/newsletter";
 import Testimonial from "../components/testimonial";
 import Lastestposts from "../components/latestposts";
 
+// Добавяне на ISR ревалидиране на всеки час
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <>

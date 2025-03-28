@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getLatestPosts } from "../services/posts";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function LatestPosts() {
   const [posts, setPosts] = useState([]);
@@ -35,17 +36,28 @@ export default function LatestPosts() {
           {!loading && (
             <div className="mx-auto mt-16 grid !max-w-[80%] grid-cols-1 gap-x-8 gap-y-20 lg:mx-auto lg:max-w-none lg:grid-cols-3">
               {posts.length > 0 ? (
-                posts.map((post) => (
-                  <Link href={`/blog/${post.slug}`} key={post.id} prefetch={true}>
+                posts.map((post, index) => (
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    key={post.id}
+                    prefetch={true}
+                  >
                     <article className="flex flex-col items-start justify-between">
                       <div className="relative w-full">
-                        <img
-                          alt=""
+                        <Image
+                          width={400}
+                          height={225}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          quality={85}
+                          priority={index === 0}
+                          loading={index === 0 ? "eager" : "lazy"}
+                          alt={post.title.rendered || "Публикация"}
                           src={
                             post.yoast_head_json?.og_image?.[0]?.url ||
                             "https://via.placeholder.com/360x240"
                           }
                           className="aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-2/1 lg:aspect-3/2"
+                          format="webp"
                         />
                         <div className="absolute inset-0 rounded-2xl ring-1 ring-gray-900/10 ring-inset" />
                       </div>
@@ -69,14 +81,19 @@ export default function LatestPosts() {
                           </p>
                         </div>
                         <div className="relative mt-8 flex items-center gap-x-4">
-                          <img
-                            alt="Author Image"
+                          <Image
+                            width={40}
+                            height={40}
+                            quality={80}
+                            loading="lazy"
+                            alt="Автор"
                             src={
                               post.yoast_head_json?.schema?.["@graph"]?.find(
                                 (person) => person["@type"] === "Person"
                               )?.image?.url || "https://via.placeholder.com/50"
                             }
                             className="size-10 rounded-full bg-gray-100"
+                            format="webp"
                           />
                           <div className="text-sm/6 text-left">
                             <p className="font-semibold text-white">

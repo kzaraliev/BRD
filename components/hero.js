@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import StaticOptimizedImage from "./StaticOptimizedImage";
 
 export default function Hero() {
   return (
@@ -30,7 +30,7 @@ export default function Hero() {
                   </div>
                 </div>
                 <h1 className="text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl font-display">
-                  „Бурков, Радев, Дюлгерска“
+                  "Бурков, Радев, Дюлгерска"
                 </h1>
                 <p className="mt-8 text-4xl font-medium font-display">
                   Адвокатско дружество
@@ -63,16 +63,14 @@ export default function Hero() {
           </div>
         </div>
         <div className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <Image
+          <StaticOptimizedImage
             width={955}
             height={776}
-            priority
-            fetchPriority="high"
-            loading="eager"
-            quality={80}
-            alt="hero-baner"
+            alt="Адвокатско дружество Бурков, Радев, Дюлгерска"
             src="/lawyer.webp"
             className="object-cover lg:aspect-auto lg:size-full"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            fetchPriority="high"
           />
         </div>
       </div>
