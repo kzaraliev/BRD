@@ -44,7 +44,7 @@ export default function Newsletter() {
                 name="email"
                 type="email"
                 required
-                placeholder="Въведете вашия имейл"
+                placeholder="Въведете Вашия имейл"
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -54,7 +54,7 @@ export default function Newsletter() {
                 type="submit"
                 className="flex-none rounded-md bg-[#95161C] hover:bg-gray-300 cursor-pointer hover:text-[#000000] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Абонирай се
+                Абонирайте се
               </button>
             </form>
           </div>

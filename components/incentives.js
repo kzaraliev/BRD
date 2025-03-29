@@ -1,21 +1,21 @@
 const incentives = [
   {
-    name: "Free shipping",
+    name: "Експертиза",
     imageSrc: "/icons/lawyer-1.svg",
     description:
-      "It's not actually free we just price it into the products. Someone's paying for it, and it's not us.",
+      "Експертиза в различни области на правото, позволяваща на клиентите да получат всеобхватно обслужване.",
   },
   {
-    name: "10-year warranty",
+    name: "Индивидуален подход",
     imageSrc: "/icons/lawyer-2.svg",
     description:
-      "If it breaks in the first 10 years we'll replace it. After that you're on your own though.",
+      "Прилагаме индивидуален подход спрямо специфичните нужди на всеки клиент.",
   },
   {
-    name: "Exchanges",
+    name: "Дългосрочни партньорства",
     imageSrc: "/icons/lawyer-3.svg",
     description:
-      "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though.",
+      "Градим дългосрочни партньорства, основани на доверие и професионализъм.",
   },
 ];
 
@@ -53,10 +53,17 @@ export default function Incentives() {
             {incentives.map((incentive) => (
               <div key={incentive.name} className="sm:flex lg:block">
                 <div className="sm:shrink-0">
-                  <img alt="" src={incentive.imageSrc} className="size-16" />
+                  <div className="h-10 w-10 flex items-center justify-center rounded-full bg-[#95161C]">
+                    <img
+                      alt=""
+                      src={incentive.imageSrc}
+                      className="h-6 w-6"
+                      style={{ filter: "brightness(0) invert(1)" }}
+                    />
+                  </div>
                 </div>
                 <div className="mt-4 sm:mt-0 sm:ml-6 lg:mt-6 lg:ml-0">
-                  <h3 className="text-sm font-medium text-gray-900">
+                  <h3 className="text-sm font-medium text-white">
                     {incentive.name}
                   </h3>
                   <p className="mt-2 text-sm text-white">

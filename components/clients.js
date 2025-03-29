@@ -19,17 +19,6 @@ export default function Clients() {
               гама от специалисти, в това число счетоводители, инженери,
               застрахователи и др.
             </p>
-            <div className="mt-8 flex items-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md bg-[#95161C] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-gray-300 hover:text-[#000000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Create account
-              </a>
-              <a href="#" className="text-sm font-semibold text-gray-900">
-                Contact us <span aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
           </div>
           <div className="mx-auto grid w-full max-w-xl grid-cols-2 items-center gap-y-12 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:pl-8">
             <Image
