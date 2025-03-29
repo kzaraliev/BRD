@@ -27,7 +27,7 @@ const CookieConsentBanner = () => {
       }}
       buttonWrapperClasses="flex gap-4 mt-3 md:mt-0"
       buttonStyle={{
-        backgroundColor: "#4CAF50",
+        backgroundColor: "#2B642C",
         color: "#FFF",
         fontSize: "14px",
         padding: "8px 16px",
