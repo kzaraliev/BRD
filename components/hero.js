@@ -2,6 +2,7 @@ import Link from "next/link";
 import StaticOptimizedImage from "./StaticOptimizedImage";
 import Head from "next/head";
 import LazyImageObserver from "./LazyImageObserver";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -9,20 +10,32 @@ export default function Hero() {
       <Head>
         {/* Предварително зареждане на LCP изображението */}
         <link rel="preload" as="image" href="/lawyer.webp" type="image/webp" />
+
+        {/* Preload мобилно изображение за устройства с малък екран */}
+        <link
+          rel="preload"
+          as="image"
+          href="/lawyer-mobile-lcp.webp"
+          media="(max-width: 640px)"
+          type="image/webp"
+        />
       </Head>
       <LazyImageObserver />
       <div className="bg-white">
         {/* Мобилен Hero с изображение най-отгоре - ще бъде LCP елемент за мобилни */}
         <div className="lg:hidden relative">
           <div className="w-full">
-            <StaticOptimizedImage
-              width={800}
-              height={500}
+            {/* Директно използване на HTML img за максимална производителност на LCP */}
+            <img
+              src="/lawyer-mobile-lcp.webp"
+              width={640}
+              height={400}
               alt="Адвокатско дружество Бурков, Радев, Дюлгерска"
-              src="/lawyer.webp"
               className="w-full h-auto object-cover aspect-[4/3]"
-              sizes="100vw"
               fetchPriority="high"
+              decoding="async"
+              loading="eager"
+              style={{ objectFit: "cover" }}
             />
           </div>
 
@@ -118,14 +131,17 @@ export default function Hero() {
             </div>
           </div>
           <div className="bg-gray-50 absolute inset-y-0 right-0 w-1/2">
-            <StaticOptimizedImage
+            {/* Директно използване на HTML img за десктоп версията */}
+            <img
+              src="/lawyer-desktop-lcp.webp"
               width={955}
               height={776}
               alt="Адвокатско дружество Бурков, Радев, Дюлгерска"
-              src="/lawyer.webp"
               className="h-full w-full object-cover"
-              sizes="50vw"
               fetchPriority="high"
+              decoding="async"
+              loading="eager"
+              style={{ objectFit: "cover" }}
             />
           </div>
         </div>

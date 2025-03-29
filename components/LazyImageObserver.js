@@ -8,29 +8,43 @@ import { useEffect, useRef } from "react";
  */
 export default function LazyImageObserver() {
   const observerRef = useRef(null);
+  const lcpImageLoadedRef = useRef(false);
 
   useEffect(() => {
     // Функция за докладване на LCP метрика
-    const reportLCP = () => {
+    const reportLCP = (targetElement) => {
+      if (lcpImageLoadedRef.current) return; // Предотвратяваме повторно докладване
+
+      lcpImageLoadedRef.current = true;
+
       if (window.performance && window.performance.mark) {
         window.performance.mark("lcp-detected");
       }
-      if ("performance" in window) {
-        console.log("LCP изображението е заредено успешно!");
+
+      // Маркираме атрибут на изображението, че е заредено
+      if (targetElement) {
+        targetElement.setAttribute("data-lcp-loaded", "true");
       }
+
+      console.log("LCP изображението е заредено успешно!");
     };
 
     // Използваме Intersection Observer API за да проверим кога изображението е видимо
     const initIntersectionObserver = () => {
-      // Търсим LCP изображението
-      const targetImage = document.querySelector('[fetchPriority="high"]');
+      // Търсим LCP изображенията според viewport размера
+      const isMobile = window.innerWidth <= 640;
+      const targetSelector = isMobile
+        ? 'img[src="/lawyer-mobile-lcp.webp"]'
+        : 'img[src="/lawyer-desktop-lcp.webp"]';
+
+      const targetImage = document.querySelector(targetSelector);
 
       if (targetImage && "IntersectionObserver" in window) {
         observerRef.current = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                reportLCP();
+                reportLCP(entry.target);
                 // Изчистваме observer-а след като изображението е заредено
                 if (observerRef.current) {
                   observerRef.current.disconnect();
@@ -42,23 +56,30 @@ export default function LazyImageObserver() {
           {
             root: null,
             threshold: 0.1, // 10% от изображението да бъде видимо
+            rootMargin: "0px 0px 0px 0px",
           }
         );
 
         observerRef.current.observe(targetImage);
+
+        // Проверяваме и за случая, когато изображението вече е заредено
+        if (targetImage.complete) {
+          reportLCP(targetImage);
+        } else {
+          // Добавяме и onload handler за директно изображение
+          targetImage.onload = () => reportLCP(targetImage);
+        }
       }
     };
 
-    // Изчакваме DOM да се зареди изцяло
-    if (document.readyState === "complete") {
+    // Изчакваме малко, за да сме сигурни, че DOM е зареден
+    const timer = setTimeout(() => {
       initIntersectionObserver();
-    } else {
-      window.addEventListener("load", initIntersectionObserver);
-      return () => window.removeEventListener("load", initIntersectionObserver);
-    }
+    }, 50);
 
     // Cleanup при unmount
     return () => {
+      clearTimeout(timer);
       if (observerRef.current) {
         observerRef.current.disconnect();
         observerRef.current = null;

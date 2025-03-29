@@ -74,14 +74,29 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
         <link rel="dns-prefetch" href="https://brd.devclick.net" />
+
+        {/* Предварително зареждане на мобилната версия на LCP изображението */}
         <link
           rel="preload"
-          href="/lawyer.webp"
+          href="/lawyer-mobile-lcp.webp"
           as="image"
           type="image/webp"
           fetchPriority="high"
           importance="high"
+          media="(max-width: 640px)"
         />
+
+        {/* Предварително зареждане на десктоп версията на LCP изображението */}
+        <link
+          rel="preload"
+          href="/lawyer-desktop-lcp.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="high"
+          importance="high"
+          media="(min-width: 641px)"
+        />
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className={roboto.className}>

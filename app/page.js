@@ -6,6 +6,7 @@ import Clients from "../components/clients";
 import Newsletter from "../components/newsletter";
 import Testimonial from "../components/testimonial";
 import Lastestposts from "../components/latestposts";
+import { WebVitals } from "./web-vitals";
 
 // Добавяне на ISR ревалидиране на всеки час
 export const revalidate = 3600;
@@ -13,6 +14,7 @@ export const revalidate = 3600;
 export default function Home() {
   return (
     <>
+      <WebVitals />
       <HeroSection />
       <Incentives />
       <Team />
