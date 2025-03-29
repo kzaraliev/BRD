@@ -79,7 +79,7 @@ export default function RootLayout({ children }) {
           href="/lawyer.webp"
           as="image"
           type="image/webp"
-          fetchpriority="high"
+          fetchPriority="high"
           importance="high"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
