@@ -277,8 +277,8 @@ export default function Navigation() {
                   />
                   {/* Десктоп лого - променя се при скрол */}
                   <Image
-                    width={160}
-                    height={180}
+                    width={368}
+                    height={112}
                     alt=""
                     src={isScrolled ? "/brd_menu_logo.png" : "/brd-logo-1.svg"}
                     className="hidden lg:block transition-all duration-300 ease-in-out"
