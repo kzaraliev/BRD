@@ -23,7 +23,7 @@ export default function LazyImageObserver() {
     // Използваме Intersection Observer API за да проверим кога изображението е видимо
     const initIntersectionObserver = () => {
       // Търсим LCP изображението
-      const targetImage = document.querySelector('[fetchpriority="high"]');
+      const targetImage = document.querySelector('[fetchPriority="high"]');
 
       if (targetImage && "IntersectionObserver" in window) {
         observerRef.current = new IntersectionObserver(
