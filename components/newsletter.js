@@ -60,14 +60,14 @@ export default function Newsletter() {
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
             <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <CalendarDaysIcon
-                  aria-hidden="true"
-                  className="size-6 text-white"
-                />
-              </div>
-              <dt className="mt-4 text-base font-semibold text-white">
-                Седмични статии
+              <dt className="flex items-center text-base font-semibold text-white">
+                <div className="mr-4 rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                  <CalendarDaysIcon
+                    aria-hidden="true"
+                    className="size-6 text-white"
+                  />
+                </div>
+                <span className="mt-4">Седмични статии</span>
               </dt>
               <dd className="mt-2 text-base/7 text-gray-400">
                 Всяка седмица подбираме за вас най-актуалните правни теми и
@@ -76,14 +76,14 @@ export default function Newsletter() {
               </dd>
             </div>
             <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <HandRaisedIcon
-                  aria-hidden="true"
-                  className="size-6 text-white"
-                />
-              </div>
-              <dt className="mt-4 text-base font-semibold text-white">
-                Без спам
+              <dt className="flex items-center text-base font-semibold text-white">
+                <div className="mr-4 rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                  <HandRaisedIcon
+                    aria-hidden="true"
+                    className="size-6 text-white"
+                  />
+                </div>
+                <span className="mt-4">Без спам</span>
               </dt>
               <dd className="mt-2 text-base/7 text-gray-400">
                 Обещаваме: само полезна информация, без излишни съобщения.
