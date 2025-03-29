@@ -67,7 +67,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="bg">
       <head>
-        {/* <CriticalCSS />
+        <CriticalCSS />
         <link
           rel="preconnect"
           href="https://brd.devclick.net"
@@ -81,7 +81,7 @@ export default function RootLayout({ children }) {
           type="image/webp"
           fetchpriority="high"
           importance="high"
-        /> */}
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className={roboto.className}>
