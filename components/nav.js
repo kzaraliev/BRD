@@ -280,7 +280,7 @@ export default function Navigation() {
                     width={385}
                     height={106}
                     alt=""
-                    src={isScrolled ? "/brd_menu_logo.png" : "/brd-logo-1.svg"}
+                    src={isScrolled ? "/brd_menu_logo.png" : "/brd-logo.svg"}
                     className="hidden lg:block transition-all duration-300 ease-in-out"
                     style={{
                       height: isScrolled ? "40px" : "112px",
