@@ -3,8 +3,10 @@ import StaticOptimizedImage from "./StaticOptimizedImage";
 import Head from "next/head";
 import LazyImageObserver from "./LazyImageObserver";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function Hero() {
+  const t = useTranslations("Homepage");
   return (
     <>
       <Head>
@@ -41,18 +43,13 @@ export default function Hero() {
 
           <div className="px-6 py-10">
             <h1 className="text-3xl font-semibold tracking-tight text-pretty text-gray-900 font-display">
-              "Бурков, Радев, Дюлгерска"
+              {t("title")}
             </h1>
             <p className="mt-4 text-2xl font-medium font-display">
-              Адвокатско дружество
+              {t("subtitle")}
             </p>
             <p className="mt-6 text-sm font-medium text-pretty text-gray-500 font-display">
-              Кантората е основана през 2016 г., обединявайки екип от
-              професионалисти с дългогодишен опит. Предоставяме на своите
-              клиенти всеобхватно правно обслужване в следните области на
-              правото: вещно право, семейно и наследствено право, облигационно
-              право, трудово право, търговско право, право на интелектуална
-              собственост, реклама и медии, граждански и административен процес.
+              {t("description")}
             </p>
             <div className="mt-8 flex items-center gap-x-4">
               <Link
@@ -98,19 +95,13 @@ export default function Hero() {
                     </div>
                   </div>
                   <h1 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl font-display">
-                    "Бурков, Радев, Дюлгерска"
+                    {t("title")}
                   </h1>
                   <p className="mt-8 text-4xl font-medium font-display">
-                    Адвокатско дружество
+                    {t("subtitle")}
                   </p>
                   <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 font-display">
-                    Кантората е основана през 2016 г., обединявайки екип от
-                    професионалисти с дългогодишен опит. Предоставяме на своите
-                    клиенти всеобхватно правно обслужване в следните области на
-                    правото: вещно право, семейно и наследствено право,
-                    облигационно право, трудово право, търговско право, право на
-                    интелектуална собственост, реклама и медии, граждански и
-                    административен процес.
+                    {t("description")}
                   </p>
                   <div className="mt-10 flex items-center gap-x-6">
                     <Link

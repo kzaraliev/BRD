@@ -22,8 +22,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { getServicesNav } from "../services/services";
 import { searchContent } from "../services/search";
+import { useRouter } from "next/navigation";
 
 export default function Navigation() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,6 +34,7 @@ export default function Navigation() {
   const [showResults, setShowResults] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const searchRef = useRef(null);
+  const [locale, setLocale] = useState("");
   const [navigation, setNavigation] = useState({
     categories: [
       {
@@ -128,6 +131,22 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
+    const cookieLocale = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("BRD_LOCALE="))
+      ?.split("=")[1];
+
+    if (cookieLocale) {
+      setLocale(cookieLocale);
+    } else {
+      const browserLocale = navigator.language.slice(0, 2);
+      setLocale(browserLocale);
+      document.cookie = `BRD_LOCALE=${browserLocale};`;
+      router.refresh();
+    }
+  }, [router]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       if (scrollTop > 50) {
@@ -143,6 +162,11 @@ export default function Navigation() {
     };
   }, []);
 
+  const changeLocale = (newLocale) => {
+    setLocale(newLocale);
+    document.cookie = `BRD_LOCALE=${newLocale};`;
+    router.refresh();
+  };
   return (
     <div className="bg-white sticky shadow-md top-0 block w-full z-50">
       {/* Mobile menu */}
@@ -290,6 +314,19 @@ export default function Navigation() {
                 </Link>
               </div>
 
+              <button
+                className={`${locale === "bg" ? "bg-red-500" : "bg-gray-200"} text-white px-4 py-2 rounded-md`}
+                onClick={() => changeLocale("bg")}
+              >
+                bg
+              </button>
+              <button
+                className={`${locale === "en" ? "bg-red-500" : "bg-gray-200"} text-white px-4 py-2 rounded-md`}
+                onClick={() => changeLocale("en")}
+              >
+                en
+              </button>
+
               {/* Секция 2: Меню - центрирано */}
               <div className="hidden lg:flex lg:items-center lg:justify-center lg:flex-1">
                 <PopoverGroup className="flex">
@@ -312,7 +349,7 @@ export default function Navigation() {
                           <>
                             <div className="relative flex">
                               <PopoverButton
-                                className={`relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-open:border-[#95161C] data-open:text-[#95161C] cursor-pointer focus-visible:outline-none transition-all ${
+                                className={`relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px font-medium text-gray-700 duration-200 ease-out hover:text-gray-800 data-open:border-[#95161C] data-open:text-[#95161C] cursor-pointer focus-visible:outline-none transition-all ${
                                   isScrolled ? "text-base" : "text-lg"
                                 }`}
                               >

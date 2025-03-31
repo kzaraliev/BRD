@@ -8,6 +8,8 @@ import { CriticalCSS } from "./critical-css";
 
 import "../styles/globals.css";
 import { Roboto } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -63,76 +65,84 @@ export async function generateMetadata() {
   };
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const messages = await getMessages();
+  const locale = await getLocale();
+
   return (
-    <html lang="bg">
-      <head>
-        <CriticalCSS />
-        <link
-          rel="preconnect"
-          href="https://brd.devclick.net"
-          crossOrigin="anonymous"
-        />
-        <link rel="dns-prefetch" href="https://brd.devclick.net" />
+    <NextIntlClientProvider messages={messages}>
+      <html lang={locale}>
+        <head>
+          <CriticalCSS />
+          <link
+            rel="preconnect"
+            href="https://brd.devclick.net"
+            crossOrigin="anonymous"
+          />
+          <link rel="dns-prefetch" href="https://brd.devclick.net" />
 
-        {/* Предварително зареждане на мобилната версия на LCP изображението */}
-        <link
-          rel="preload"
-          href="/lawyer-mobile-lcp.webp"
-          as="image"
-          type="image/webp"
-          fetchPriority="high"
-          importance="high"
-          media="(max-width: 640px)"
-        />
+          {/* Предварително зареждане на мобилната версия на LCP изображението */}
+          <link
+            rel="preload"
+            href="/lawyer-mobile-lcp.webp"
+            as="image"
+            type="image/webp"
+            fetchPriority="high"
+            importance="high"
+            media="(max-width: 640px)"
+          />
 
-        {/* Предварително зареждане на десктоп версията на LCP изображението */}
-        <link
-          rel="preload"
-          href="/lawyer-desktop-lcp.webp"
-          as="image"
-          type="image/webp"
-          fetchPriority="high"
-          importance="high"
-          media="(min-width: 641px)"
-        />
+          {/* Предварително зареждане на десктоп версията на LCP изображението */}
+          <link
+            rel="preload"
+            href="/lawyer-desktop-lcp.webp"
+            as="image"
+            type="image/webp"
+            fetchPriority="high"
+            importance="high"
+            media="(min-width: 641px)"
+          />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
-      <body className={roboto.className}>
-        <ImagePreloader />
-        <Navigation />
-        <main>{children}</main>
-        <CookieConsentBanner />
-        <Footer />
-        <Script
-          id="structured-data"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LegalService",
-              name: 'Адвокатско дружество "Бурков, Радев, Дюлгерска"',
-              description:
-                "Вашият доверен правен партньор. Предлагаме висококачествени правни услуги в областта на търговското, гражданското, наказателното и административното право.",
-              url: "https://brd.bg",
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+359XXXXXXXXX",
-                contactType: "customer service",
-              },
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Example Street 123",
-                addressLocality: "София",
-                postalCode: "1000",
-                addressCountry: "BG",
-              },
-            }),
-          }}
-        />
-      </body>
-    </html>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+        </head>
+        <body className={roboto.className}>
+          <ImagePreloader />
+          <Navigation />
+          <main>{children}</main>
+          <CookieConsentBanner />
+          <Footer />
+          <Script
+            id="structured-data"
+            type="application/ld+json"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "LegalService",
+                name: 'Адвокатско дружество "Бурков, Радев, Дюлгерска"',
+                description:
+                  "Вашият доверен правен партньор. Предлагаме висококачествени правни услуги в областта на търговското, гражданското, наказателното и административното право.",
+                url: "https://brd.bg",
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  telephone: "+359XXXXXXXXX",
+                  contactType: "customer service",
+                },
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "Example Street 123",
+                  addressLocality: "София",
+                  postalCode: "1000",
+                  addressCountry: "BG",
+                },
+              }),
+            }}
+          />
+        </body>
+      </html>
+    </NextIntlClientProvider>
   );
 }
