@@ -28,7 +28,7 @@ export default function OptimizedImage({
   priority = false,
   sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
   quality = 85,
-  fallbackSrc = "https://via.placeholder.com/400x300?text=Изображението+не+е+налично",
+  fallbackSrc = "/placeholder.webp",
   className,
   style,
   objectFit = "cover",

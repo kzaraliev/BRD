@@ -54,7 +54,7 @@ export default function LatestPosts() {
                           alt={post.title.rendered || "Публикация"}
                           src={
                             post.yoast_head_json?.og_image?.[0]?.url ||
-                            "https://via.placeholder.com/360x240"
+                            "/placeholder.webp"
                           }
                           className="aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-2/1 lg:aspect-3/2"
                           format="webp"
@@ -90,7 +90,7 @@ export default function LatestPosts() {
                             src={
                               post.yoast_head_json?.schema?.["@graph"]?.find(
                                 (person) => person["@type"] === "Person"
-                              )?.image?.url || "https://via.placeholder.com/50"
+                              )?.image?.url || "/placeholder.webp"
                             }
                             className="size-10 rounded-full bg-gray-100"
                             format="webp"

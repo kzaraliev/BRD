@@ -9,10 +9,6 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "via.placeholder.com",
-      },
-      {
-        protocol: "https",
         hostname: "tailwindui.com",
       },
       {
@@ -32,10 +28,6 @@ const nextConfig = {
   reactStrictMode: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === "production", // Премахваме console.log в production
-  },
-  experimental: {
-    //optimizeCss: true, // Оптимизира CSS
-    scrollRestoration: true, // Възстановява скрол позицията при връщане назад
   },
 };
 

@@ -81,7 +81,7 @@ export default async function Services() {
                           alt={service.title.rendered}
                           src={
                             service.yoast_head_json?.og_image?.[0]?.url ||
-                            "https://via.placeholder.com/360x240"
+                            "/placeholder.webp"
                           }
                           className="absolute inset-0 size-full rounded-2xl bg-gray-50 object-cover"
                           format="webp"

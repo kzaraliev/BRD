@@ -74,7 +74,7 @@ export default function Navigation() {
                 href: `/services/${service.slug}`,
                 imageSrc:
                   service.yoast_head_json?.og_image?.[0]?.url ||
-                  "https://via.placeholder.com/360x240",
+                  "/placeholder.webp",
                 imageAlt: service.title.rendered,
               })),
               services: remainingServices.map((service) => ({
