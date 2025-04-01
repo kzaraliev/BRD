@@ -465,19 +465,23 @@ export default function Navigation() {
                 <div className="flex space-x-2 pl-24">
                   <button
                     className={`${
-                      locale === "bg" ? "bg-[#95161C]" : "bg-gray-200"
-                    } text-white px-4 py-2 rounded-md`}
+                      locale === "bg" 
+                        ? "bg-[#95161C] text-white" 
+                        : "bg-gray-200 text-gray-700"
+                    } px-4 py-2 rounded-md font-medium transition-colors duration-200 hover:opacity-90`}
                     onClick={() => changeLocale("bg")}
                   >
-                    bg
+                    BG
                   </button>
                   <button
                     className={`${
-                      locale === "en" ? "bg-[#95161C]" : "bg-gray-200"
-                    } text-white px-4 py-2 rounded-md`}
+                      locale === "en" 
+                        ? "bg-[#95161C] text-white" 
+                        : "bg-gray-200 text-gray-700"
+                    } px-4 py-2 rounded-md font-medium transition-colors duration-200 hover:opacity-90`}
                     onClick={() => changeLocale("en")}
                   >
-                    en
+                    EN
                   </button>
                 </div>
               </div>
