@@ -1,22 +1,14 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getMembers } from "../services/members";
+import { getLocaleFromCookies } from "@/utils/cookies";
 
-export default function Team() {
-  const [members, setMembers] = useState([]);
-
-  // Fetch members from WordPress API on component mount
-  useEffect(() => {
-    const fetchMembers = async () => {
-      const membersData = await getMembers();
-      setMembers(membersData);
-    };
-
-    fetchMembers();
-  }, []);
+export default async function Team() {
+  // Get language from cookies
+  const locale = await getLocaleFromCookies();
+  
+  // Fetch members directly with await
+  const members = await getMembers(locale);
 
   return (
     <div className="bg-white py-24 sm:py-24">

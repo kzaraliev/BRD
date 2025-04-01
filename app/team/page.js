@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getMembers } from "../../services/members";
-
+import { getLocaleFromCookies } from "@/utils/cookies";
 export const metadata = {
   title: "Екип - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
   description:
@@ -9,8 +9,9 @@ export const metadata = {
 };
 
 export default async function Team() {
-  const members = await getMembers();
-
+  const locale = await getLocaleFromCookies();
+  const members = await getMembers(locale);
+  
   if (!members || members.length === 0) {
     throw new Error("Team members not found");
   }

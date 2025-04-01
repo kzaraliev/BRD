@@ -4,9 +4,9 @@ import { fetchAPI } from "./api";
  * Get all members
  * @returns {Promise<Array>} - List of members
  */
-export const getMembers = async () => {
+export const getMembers = async (locale = "bg") => {
   const fetchedMembers = await fetchAPI(
-    "members?_fields=id,acf,slug&acf_format=standard"
+    `members?_fields=id,acf,slug&acf_format=standard&lang=${locale}`
   );
 
   return fetchedMembers.map((member) => ({
@@ -31,10 +31,10 @@ export const getMembers = async () => {
  * @param {string} slug - Member slug
  * @returns {Promise<Object|null>} - Member data
  */
-export const getMemberInfo = async (slug) => {
+export const getMemberInfo = async (slug, locale = "bg") => {
   // Fetch new data from API
   const data = await fetchAPI(
-    `members?slug=${slug}&_fields=acf&acf_format=standard`
+    `members?slug=${slug}&_fields=acf&acf_format=standard&lang=${locale}`
   );
 
   return data && data.length > 0 ? data[0].acf : null;

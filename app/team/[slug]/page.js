@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { getMemberInfo } from "../../../services/members";
 import Image from "next/image";
-
+import { getLocaleFromCookies } from "@/utils/cookies";
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const member = await getMemberInfo(slug);
+  const locale = await getLocaleFromCookies();
+  const member = await getMemberInfo(slug, locale);
 
   if (!member || member.length === 0) {
     throw new Error("Member not found");
@@ -19,7 +20,9 @@ export async function generateMetadata({ params }) {
 export default async function MemberDetails({ params }) {
   const { slug } = await params;
 
-  const member = await getMemberInfo(slug);
+  const locale = await getLocaleFromCookies();
+  const member = await getMemberInfo(slug, locale);
+
 
   if (!member) {
     return <div>Членът не е намерен.</div>;

@@ -141,7 +141,7 @@ export default function Navigation() {
     } else {
       const browserLocale = navigator.language.slice(0, 2);
       setLocale(browserLocale);
-      document.cookie = `BRD_LOCALE=${browserLocale};`;
+      document.cookie = `BRD_LOCALE=${browserLocale}; path=/`;
       router.refresh();
     }
   }, [router]);
@@ -164,7 +164,7 @@ export default function Navigation() {
 
   const changeLocale = (newLocale) => {
     setLocale(newLocale);
-    document.cookie = `BRD_LOCALE=${newLocale};`;
+    document.cookie = `BRD_LOCALE=${newLocale}; path=/`;
     router.refresh();
   };
   return (
