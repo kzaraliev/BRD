@@ -314,7 +314,7 @@ export default function Navigation() {
                 </Link>
               </div>
 
-              <button
+              {/* <button
                 className={`${locale === "bg" ? "bg-red-500" : "bg-gray-200"} text-white px-4 py-2 rounded-md`}
                 onClick={() => changeLocale("bg")}
               >
@@ -325,7 +325,7 @@ export default function Navigation() {
                 onClick={() => changeLocale("en")}
               >
                 en
-              </button>
+              </button> */}
 
               {/* Секция 2: Меню - центрирано */}
               <div className="hidden lg:flex lg:items-center lg:justify-center lg:flex-1">
@@ -424,6 +424,24 @@ export default function Navigation() {
                     ))}
                   </div>
                 </PopoverGroup>
+                <div className="flex space-x-2 pl-24">
+                  <button
+                    className={`${
+                      locale === "bg" ? "bg-[#95161C]" : "bg-gray-200"
+                    } text-white px-4 py-2 rounded-md`}
+                    onClick={() => changeLocale("bg")}
+                  >
+                    bg
+                  </button>
+                  <button
+                    className={`${
+                      locale === "en" ? "bg-[#95161C]" : "bg-gray-200"
+                    } text-white px-4 py-2 rounded-md`}
+                    onClick={() => changeLocale("en")}
+                  >
+                    en
+                  </button>
+                </div>
               </div>
 
               {/* Секция 3: Търсачка */}
