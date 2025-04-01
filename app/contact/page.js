@@ -6,6 +6,7 @@ import {
 import { getContactInfo } from "../../services/contacts";
 import ContactForm from "../../components/contactForm"; // Вкарваме клиентската форма
 import Link from "next/link";
+import { getLocaleFromCookies } from "@/utils/cookies";
 
 export async function generateMetadata() {
   return {
@@ -16,7 +17,9 @@ export async function generateMetadata() {
 }
 
 export default async function ContactPage() {
-  const contactInfo = await getContactInfo();
+  // Get language from cookies
+  const locale = await getLocaleFromCookies();
+  const contactInfo = await getContactInfo(locale);
 
   return (
     <div className="relative isolate bg-white">
