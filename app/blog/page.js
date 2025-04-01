@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cookies } from "next/headers";
+import { getLocaleFromCookies } from "@/utils/cookies";
+
 export const metadata = {
   title: "Блог - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
   description:
@@ -8,8 +9,8 @@ export const metadata = {
 };
 
 export default async function Blog({ searchParams }) {
-  const cookieStore = await cookies();
-  const locale = cookieStore.get("BRD_LOCALE")?.value || "bg";
+  // Get language from cookies
+  const locale = await getLocaleFromCookies();
   const page = (await searchParams).page;
   const currentPage = parseInt(page) || 1;
   const perPage = 9;

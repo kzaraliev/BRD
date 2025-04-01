@@ -1,13 +1,12 @@
 import { getLatestPosts } from "../services/posts";
 import Link from "next/link";
 import Image from "next/image";
-import { cookies } from "next/headers";
+import { getLocaleFromCookies } from "@/utils/cookies";
 
 export default async function LatestPosts() {
   // Get language from cookies
-  const cookieStore = await cookies();
-  const locale = cookieStore.get("BRD_LOCALE")?.value || "bg";
-  
+  const locale = await getLocaleFromCookies();
+
   // Fetch posts directly with await
   const posts = await getLatestPosts(locale);
   return (
