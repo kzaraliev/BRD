@@ -1,5 +1,6 @@
-import { getContactInfo } from "../../services/contacts";
+import { getContactInfo } from "@/services/contacts";
 import Link from "next/link";
+import { getLocale } from "next-intl/server";
 
 export async function generateMetadata() {
   return {
@@ -11,7 +12,8 @@ export async function generateMetadata() {
 }
 
 export default async function PrivacyPolicy() {
-  const contactInfo = await getContactInfo();
+  const locale = await getLocale();
+  const contactInfo = await getContactInfo(locale);
 
   return (
     <div className="container mx-auto p-6 max-w-5xl bg-white py-12">
