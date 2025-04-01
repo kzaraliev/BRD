@@ -1,12 +1,12 @@
 import { headers } from "next/headers";
-import Navigation from "../components/nav";
-import CookieConsentBanner from "../components/cookieConsentBanner";
-import Footer from "../components/footer";
+import Navigation from "../../components/nav";
+import CookieConsentBanner from "../../components/cookieConsentBanner";
+import Footer from "../../components/footer";
 import Script from "next/script";
-import ImagePreloader from "../components/ImagePreloader";
+import ImagePreloader from "../../components/ImagePreloader";
 import { CriticalCSS } from "./critical-css";
 
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import { Roboto } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";

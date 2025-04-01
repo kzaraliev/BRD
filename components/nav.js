@@ -22,10 +22,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { getServicesNav } from "../services/services";
 import { searchContent } from "../services/search";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
 
 export default function Navigation() {
   const router = useRouter();
+  const pathname = usePathname();
+  const locale = useLocale();
+  
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,7 +38,7 @@ export default function Navigation() {
   const [showResults, setShowResults] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const searchRef = useRef(null);
-  const [locale, setLocale] = useState("");
+  
   const [navigation, setNavigation] = useState({
     categories: [
       {
@@ -45,21 +49,43 @@ export default function Navigation() {
       },
     ],
     pages: [
-      { name: "Начало", href: "/" },
-      { name: "Екип", href: "/team" },
-      { name: "Блог", href: "/blog" },
-      { name: "Контакти", href: "/contact" },
+      { name: "Начало", href: `/${locale}` },
+      { name: "Екип", href: `/${locale}/team` },
+      { name: "Блог", href: `/${locale}/blog` },
+      { name: "Контакти", href: `/${locale}/contact` },
     ],
   });
+
+  // Update navigation when locale changes
+  useEffect(() => {
+    setNavigation(prev => ({
+      ...prev,
+      pages: [
+        { name: "Начало", href: `/${locale}` },
+        { name: "Екип", href: `/${locale}/team` },
+        { name: "Блог", href: `/${locale}/blog` },
+        { name: "Контакти", href: `/${locale}/contact` },
+      ]
+    }));
+  }, [locale]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const services = await getServicesNav();
+        const servicesResponse = await fetch(`/api/services?locale=${locale}`);
+        
+        if (!servicesResponse.ok) {
+          console.warn("Failed to fetch services:", servicesResponse.status);
+          setLoading(false);
+          return;
+        }
+        
+        const services = await servicesResponse.json();
 
         if (!services || !Array.isArray(services) || services.length === 0) {
           console.warn("No services found from API");
+          setLoading(false);
           return;
         }
 
@@ -74,7 +100,7 @@ export default function Navigation() {
               name: "Сфери на дейност",
               featured: featured.map((service) => ({
                 name: service.title.rendered,
-                href: `/services/${service.slug}`,
+                href: `/${locale}/services/${service.slug}`,
                 imageSrc:
                   service.yoast_head_json?.og_image?.[0]?.url ||
                   "/placeholder.webp",
@@ -83,19 +109,36 @@ export default function Navigation() {
               services: remainingServices.map((service) => ({
                 id: service.id,
                 name: service.title.rendered,
-                href: `/services/${service.slug}`,
+                href: `/${locale}/services/${service.slug}`,
               })),
             },
+          ],
+          pages: [
+            { name: "Начало", href: `/${locale}` },
+            { name: "Екип", href: `/${locale}/team` },
+            { name: "Блог", href: `/${locale}/blog` },
+            { name: "Контакти", href: `/${locale}/contact` },
           ],
         }));
         setLoading(false);
       } catch (error) {
         console.error("Error fetching navigation data:", error);
+        setLoading(false);
+        // Provide fallback navigation if API fails
+        setNavigation((prev) => ({
+          ...prev,
+          pages: [
+            { name: "Начало", href: `/${locale}` },
+            { name: "Екип", href: `/${locale}/team` },
+            { name: "Блог", href: `/${locale}/blog` },
+            { name: "Контакти", href: `/${locale}/contact` },
+          ],
+        }));
       }
     };
 
     fetchData();
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     if (searchQuery.length < 3) {
@@ -103,19 +146,29 @@ export default function Navigation() {
       return;
     }
 
-    console.log(searchQuery);
-
     setIsSearching(true);
     setShowResults(true);
 
     const delayDebounceFn = setTimeout(async () => {
-      const results = await searchContent(searchQuery);
-      setSearchResults(results);
-      setIsSearching(false);
+      try {
+        const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}&locale=${locale}`);
+        
+        if (!response.ok) {
+          throw new Error(`Search failed: ${response.status}`);
+        }
+        
+        const results = await response.json();
+        setSearchResults(results);
+      } catch (error) {
+        console.error("Search error:", error);
+        setSearchResults([]);
+      } finally {
+        setIsSearching(false);
+      }
     }, 300);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery]);
+  }, [searchQuery, locale]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -129,22 +182,6 @@ export default function Navigation() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  useEffect(() => {
-    const cookieLocale = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("BRD_LOCALE="))
-      ?.split("=")[1];
-
-    if (cookieLocale) {
-      setLocale(cookieLocale);
-    } else {
-      const browserLocale = navigator.language.slice(0, 2);
-      setLocale(browserLocale);
-      document.cookie = `BRD_LOCALE=${browserLocale}; path=/`;
-      router.refresh();
-    }
-  }, [router]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -162,11 +199,25 @@ export default function Navigation() {
     };
   }, []);
 
-  const changeLocale = (newLocale) => {
-    setLocale(newLocale);
-    document.cookie = `BRD_LOCALE=${newLocale}; path=/`;
-    router.refresh();
+  // Function to get the path in a different locale
+  const getPathInLocale = (newLocale) => {
+    // Remove the locale segment from the pathname
+    const pathWithoutLocale = pathname.replace(/^\/[^\/]+/, '');
+    
+    // Handle the case of the home page
+    if (pathWithoutLocale === '') {
+      return `/${newLocale}`;
+    }
+    
+    // Return the path with the new locale
+    return `/${newLocale}${pathWithoutLocale}`;
   };
+
+  const changeLocale = (newLocale) => {
+    const newPath = getPathInLocale(newLocale);
+    router.push(newPath);
+  };
+
   return (
     <div className="bg-white sticky shadow-md top-0 block w-full z-50">
       {/* Mobile menu */}
@@ -289,7 +340,7 @@ export default function Navigation() {
 
               {/* Секция 1: Лого */}
               <div className="w-1/4 lg:w-1/5 flex items-center justify-start">
-                <Link href="/" className="block">
+                <Link href={`/${locale}`} className="block">
                   <span className="sr-only">BRD</span>
                   {/* Мобилно лого - винаги малко */}
                   <Image
@@ -313,19 +364,6 @@ export default function Navigation() {
                   />
                 </Link>
               </div>
-
-              {/* <button
-                className={`${locale === "bg" ? "bg-red-500" : "bg-gray-200"} text-white px-4 py-2 rounded-md`}
-                onClick={() => changeLocale("bg")}
-              >
-                bg
-              </button>
-              <button
-                className={`${locale === "en" ? "bg-red-500" : "bg-gray-200"} text-white px-4 py-2 rounded-md`}
-                onClick={() => changeLocale("en")}
-              >
-                en
-              </button> */}
 
               {/* Секция 2: Меню - центрирано */}
               <div className="hidden lg:flex lg:items-center lg:justify-center lg:flex-1">
@@ -486,7 +524,7 @@ export default function Navigation() {
                             }}
                           >
                             <Link
-                              href={`/${result.type}/${result.slug}`}
+                              href={`/${locale}/${result.type}/${result.slug}`}
                               className="block w-full h-full p-1 sm:p-2 text-gray-900 hover:text-[#95161C]"
                               prefetch={true}
                             >

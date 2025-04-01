@@ -1,16 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getLocaleFromCookies } from "@/utils/cookies";
 
 export const metadata = {
-  title: "Блог - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
-  description:
-    "Открийте актуални правни анализи, експертни съвети и новини в блога на Адвокатско дружество „Бурков, Радев, Дюлгерска“. Следете последните тенденции в правото, бизнеса и технологиите.",
+  title: 'Блог - Адвокатско дружество "Бурков, Радев, Дюлгерска"',
+  description: 'Открийте актуални правни анализи, експертни съвети и новини в блога на Адвокатско дружество "Бурков, Радев, Дюлгерска". Следете последните тенденции в правото, бизнеса и технологиите.',
 };
 
-export default async function Blog({ searchParams }) {
-  // Get language from cookies
-  const locale = await getLocaleFromCookies();
+export default async function Blog({ params, searchParams }) {
+  // Get language from URL path params
+  const locale = (await params).locale;
   const page = (await searchParams).page;
   const currentPage = parseInt(page) || 1;
   const perPage = 9;
@@ -77,7 +75,7 @@ export default async function Blog({ searchParams }) {
           {posts.length > 0 ? (
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
               {posts.map((post) => (
-                <Link href={`/blog/${post.slug}`} key={post.id} prefetch={true}>
+                <Link href={`/${locale}/blog/${post.slug}`} key={post.id} prefetch={true}>
                   <article className="flex flex-col items-start justify-between">
                     <div className="relative w-full">
                       <Image
@@ -124,7 +122,7 @@ export default async function Blog({ searchParams }) {
           <div className="mt-10 flex justify-center">
             {currentPage > 1 && (
               <Link
-                href={`/blog?page=${currentPage - 1}`}
+                href={`/${locale}/blog?page=${currentPage - 1}`}
                 className="px-4 py-2 mx-2 bg-gray-200 rounded-md"
                 prefetch={true}
               >
@@ -136,7 +134,7 @@ export default async function Blog({ searchParams }) {
             </span>
             {currentPage < totalPages && (
               <Link
-                href={`/blog?page=${currentPage + 1}`}
+                href={`/${locale}/blog?page=${currentPage + 1}`}
                 className="px-4 py-2 mx-2 bg-gray-200 rounded-md"
                 prefetch={true}
               >

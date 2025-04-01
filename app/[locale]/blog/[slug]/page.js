@@ -1,38 +1,52 @@
-import { getPostBySlug } from "../../../services/posts";
+import { getPostBySlug } from "../../../../services/posts";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const { slug, locale } = await params;
+  
+  try {
+    const post = await getPostBySlug(slug, locale);
 
-  if (!post || post.length === 0) {
-    throw new Error("Post not found");
+    if (!post || post.length === 0) {
+      return {
+        title: 'Blog - BRD',
+        description: 'Blog posts',
+      };
+    }
+
+    const meta = post[0].yoast_head_json;
+    const ogImage =
+      meta.og_image && meta.og_image.length > 0 ? meta.og_image[0].url : "";
+
+    return {
+      title: meta.title,
+      description: meta.description,
+      openGraph: {
+        title: meta.og_title,
+        description: meta.og_description,
+        images: ogImage ? [{ url: ogImage }] : [],
+      },
+      alternates: {
+        canonical: meta.canonical,
+      },
+    };
+  } catch (error) {
+    return {
+      title: 'Blog - BRD',
+      description: 'Blog posts',
+    };
   }
-
-  const meta = post[0].yoast_head_json;
-  const ogImage =
-    meta.og_image && meta.og_image.length > 0 ? meta.og_image[0].url : "";
-
-  return {
-    title: meta.title,
-    description: meta.description,
-    openGraph: {
-      title: meta.og_title,
-      description: meta.og_description,
-      images: ogImage ? [{ url: ogImage }] : [],
-    },
-    alternates: {
-      canonical: meta.canonical,
-    },
-  };
 }
 
 export default async function PostPage({ params }) {
+  const { slug, locale } = await params;
+  
   try {
-    const { slug } = await params;
-    const post = await getPostBySlug(slug);
+    const post = await getPostBySlug(slug, locale);
 
     if (!post || post.length === 0) {
-      throw new Error("Post not found");
+      // Redirect to the blog page in the current locale
+      redirect(`/${locale}/blog`);
     }
 
     const meta = post[0].yoast_head_json;
@@ -97,6 +111,7 @@ export default async function PostPage({ params }) {
       </>
     );
   } catch (error) {
-    return <p>Error: {error.message}</p>;
+    // Redirect to the blog page in the current locale
+    redirect(`/${locale}/blog`);
   }
 }

@@ -1,11 +1,12 @@
-import { getServiceBySlug } from "../../../services/services";
+import { getServiceBySlug } from "@/services/services";
 
 // Добавяне на ISR ревалидиране на всеки час
 export const revalidate = 3600;
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+  const { slug, locale } = await params;
+  // Pass locale to getServiceBySlug
+  const service = await getServiceBySlug(slug, locale);
 
   if (!service || service.length === 0) {
     throw new Error("Service not found");
@@ -31,8 +32,9 @@ export async function generateMetadata({ params }) {
 
 export default async function ServicePage({ params }) {
   try {
-    const { slug } = await params;
-    const service = await getServiceBySlug(slug);
+    const { slug, locale } = await params;
+    // Pass locale to getServiceBySlug
+    const service = await getServiceBySlug(slug, locale);
 
     if (!service || service.length === 0) {
       throw new Error("Service not found");

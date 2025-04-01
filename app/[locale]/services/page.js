@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getServices } from "../../services/services";
-
+import { getServices } from "@/services/services";
+import { getLocale } from "next-intl/server";
 // Добавяне на ISR ревалидиране на всеки час
 export const revalidate = 3600;
 
@@ -12,8 +12,10 @@ export const metadata = {
 };
 
 export default async function Services() {
+  const locale = await getLocale();
   try {
-    const services = await getServices();
+    // Pass locale to the getServices function
+    const services = await getServices(locale);
 
     if (!services || services.length === 0) {
       return (
@@ -64,7 +66,7 @@ export default async function Services() {
               <div className="flex flex-col mt-8 space-y-20 lg:mt-8 lg:space-y-20">
                 {services.map((service, index) => (
                   <Link
-                    href={`/services/${service.slug}`}
+                    href={`/${locale}/services/${service.slug}`}
                     className="flex mt-8 mb-8 w-full max-w-full"
                     key={service.id}
                     prefetch={true}

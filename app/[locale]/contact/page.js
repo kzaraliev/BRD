@@ -3,22 +3,21 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
-import { getContactInfo } from "../../services/contacts";
-import ContactForm from "../../components/contactForm"; // Вкарваме клиентската форма
+import { getContactInfo } from "@/services/contacts";
+import ContactForm from "@/components/contactForm";
 import Link from "next/link";
-import { getLocaleFromCookies } from "@/utils/cookies";
 
 export async function generateMetadata() {
   return {
-    title: "Контакти - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
+    title: 'Контакти - Адвокатско дружество "Бурков, Радев, Дюлгерска"',
     description:
-      "Свържете се с Адвокатско дружество „Бурков, Радев, Дюлгерска“ за правна консултация. Нашият екип е на разположение да отговори на вашите въпроси и да предложи експертни решения. Намерете нашите контакти и адрес тук.",
+      'Свържете се с Адвокатско дружество "Бурков, Радев, Дюлгерска" за правна консултация. Нашият екип е на разположение да отговори на вашите въпроси и да предложи експертни решения. Намерете нашите контакти и адрес тук.',
   };
 }
 
-export default async function ContactPage() {
-  // Get language from cookies
-  const locale = await getLocaleFromCookies();
+export default async function ContactPage({ params }) {
+  // Get language from URL path params
+  const locale = (await params).locale;
   const contactInfo = await getContactInfo(locale);
 
   return (
@@ -103,7 +102,7 @@ export default async function ContactPage() {
             </dl>
           </div>
         </div>
-        <ContactForm />
+        <ContactForm/>
       </div>
     </div>
   );

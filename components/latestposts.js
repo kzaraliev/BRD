@@ -1,11 +1,11 @@
 import { getLatestPosts } from "../services/posts";
 import Link from "next/link";
 import Image from "next/image";
-import { getLocaleFromCookies } from "@/utils/cookies";
+import { getLocale } from "next-intl/server";
 
 export default async function LatestPosts() {
-  // Get language from cookies
-  const locale = await getLocaleFromCookies();
+  // Get language from URL path
+  const locale = await getLocale();
 
   // Fetch posts directly with await
   const posts = await getLatestPosts(locale);
@@ -19,7 +19,7 @@ export default async function LatestPosts() {
             {posts && posts.length > 0 ? (
               posts.map((post, index) => (
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/${locale}/blog/${post.slug}`}
                   key={post.id}
                   prefetch={true}
                 >

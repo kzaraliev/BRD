@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getMembers } from "../services/members";
-import { getLocaleFromCookies } from "@/utils/cookies";
+import { getLocale } from "next-intl/server";
 
 export default async function Team() {
-  // Get language from cookies
-  const locale = await getLocaleFromCookies();
+  // Get language from URL path
+  const locale = await getLocale();
+  console.log("locale", locale);
   
   // Fetch members directly with await
   const members = await getMembers(locale);
@@ -38,7 +39,7 @@ export default async function Team() {
         >
           {members.map((member, index) => (
             <li key={member.id} className="flex flex-col items-center">
-              <Link href={`/team/${member.slug}`} prefetch={true}>
+              <Link href={`/${locale}/team/${member.slug}`} prefetch={true}>
                 <Image
                   width={250}
                   height={375}

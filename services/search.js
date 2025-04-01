@@ -1,17 +1,17 @@
 import { fetchAPI } from "./api";
 
-export const searchContent = async (query) => {
+export const searchContent = async (query, locale = "bg") => {
     if (!query || query.length < 3) return [];
 
     try {
         // Търсене в блог публикации
-        const blogPosts = await fetchAPI(`posts?search=${query}`);
+        const blogPosts = await fetchAPI(`posts?search=${query}&lang=${locale}`);
 
         // Търсене в CPT "members"
-        const members = await fetchAPI(`members?search=${query}`);
+        const members = await fetchAPI(`members?search=${query}&lang=${locale}`);
 
-        // Търсене в CPT "members"
-        const services = await fetchAPI(`services?search=${query}`);
+        // Търсене в CPT "services"
+        const services = await fetchAPI(`services?search=${query}&lang=${locale}`);
 
         // Форматиране на резултатите
         const results = [

@@ -2,6 +2,7 @@ import { fetchAPI } from "./api";
 
 /**
  * Get all members
+ * @param {string} locale - Language code
  * @returns {Promise<Array>} - List of members
  */
 export const getMembers = async (locale = "bg") => {
@@ -29,6 +30,7 @@ export const getMembers = async (locale = "bg") => {
 /**
  * Get single member by slug
  * @param {string} slug - Member slug
+ * @param {string} locale - Language code
  * @returns {Promise<Object|null>} - Member data
  */
 export const getMemberInfo = async (slug, locale = "bg") => {

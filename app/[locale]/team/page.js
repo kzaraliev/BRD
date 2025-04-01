@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getMembers } from "../../services/members";
-import { getLocaleFromCookies } from "@/utils/cookies";
+import { getMembers } from "@/services/members";
+
 export const metadata = {
-  title: "Екип - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
+  title: 'Екип - Адвокатско дружество "Бурков, Радев, Дюлгерска"',
   description:
-    "Нашите адвокати разполагат с богат опит в правното консултиране на медии, телекомуникации, маркетинг, реклама, съдържание и нови технологии, осигурявайки експертна правна подкрепа и иновативни решения.",
+    'Нашите адвокати разполагат с богат опит в правното консултиране на медии, телекомуникации, маркетинг, реклама, съдържание и нови технологии, осигурявайки експертна правна подкрепа и иновативни решения.',
 };
 
-export default async function Team() {
-  const locale = await getLocaleFromCookies();
+export default async function Team({ params }) {
+  const locale = (await params).locale;
   const members = await getMembers(locale);
   
   if (!members || members.length === 0) {
@@ -81,7 +81,7 @@ export default async function Team() {
                 key={member.id}
                 className="flex flex-col gap-10 py-12 first:pt-0 last:pb-0 sm:flex-row"
               >
-                <Link href={`/team/${member.slug}`} prefetch={true}>
+                <Link href={`/${locale}/team/${member.slug}`} prefetch={true}>
                   <Image
                     width={250}
                     height={375}
@@ -91,7 +91,7 @@ export default async function Team() {
                   />
                 </Link>
                 <div className="max-w-xl flex-auto">
-                  <Link href={`/team/${member.slug}`} prefetch={true}>
+                  <Link href={`/${locale}/team/${member.slug}`} prefetch={true}>
                     <h3 className="text-lg/8 font-semibold tracking-tight text-gray-900">
                       {member.name}
                     </h3>
