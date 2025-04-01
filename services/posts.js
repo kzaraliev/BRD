@@ -16,8 +16,8 @@ export const getPostBySlug = cache(async (slug) => {
  * Get latest posts
  * @returns {Promise<Array>} - List of latest posts
  */
-export const getLatestPosts = cache(async () => {
+export const getLatestPosts = cache(async (locale = "bg") => {
   return await fetchAPI(
-    "posts?per_page=3&_fields=id,slug,yoast_head_json,date,title,content"
+    `posts?per_page=3&_fields=id,slug,yoast_head_json,date,title,content&lang=${locale}`
   );
 });

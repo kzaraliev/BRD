@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
+import { cookies } from "next/headers";
 export const metadata = {
   title: "Блог - Адвокатско дружество „Бурков, Радев, Дюлгерска“",
   description:
@@ -8,13 +8,15 @@ export const metadata = {
 };
 
 export default async function Blog({ searchParams }) {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("BRD_LOCALE")?.value || "bg";
   const page = (await searchParams).page;
   const currentPage = parseInt(page) || 1;
   const perPage = 9;
 
   // Fetch posts from WordPress API with caching enabled
   const response = await fetch(
-    `https://brd.devclick.net/wp-json/wp/v2/posts?page=${currentPage}&per_page=${perPage}&_fields=id,yoast_head_json,date,slug,title,content`,
+    `https://brd.devclick.net/wp-json/wp/v2/posts?page=${currentPage}&per_page=${perPage}&_fields=id,yoast_head_json,date,slug,title,content&lang=${locale}`,
     {
       next: { revalidate: 120 },
     }
